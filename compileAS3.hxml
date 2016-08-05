@@ -1,0 +1,7 @@
+-cp ./src
+-swf-version 17
+-as3 ./bin/as3
+-swf-lib-extern lib\as3-signals-v0.8.swc 
+--macro include('jp.gr.java_conf.ennea.sound')
+--macro include('stb.format')
+--no-traces

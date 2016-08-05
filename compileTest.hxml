@@ -1,0 +1,16 @@
+-cp ./src
+-cp ./test/src
+-swf-version 17
+-swf-lib lib\as3-signals-v0.8.swc 
+--macro include('jp.gr.java_conf.ennea.sound')
+--macro include('stb.format')
+-debug
+-D fdb
+--each
+
+-main VorbisASTest
+-swf ./bin/VorbisASTest.swf
+
+--next
+-main VorbisSoundTest
+-swf ./bin/VorbisSoundTest.swf
