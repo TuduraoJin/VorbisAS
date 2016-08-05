@@ -9,6 +9,9 @@ CHANGELOG
 * change test assets.
 * update README.md. add Quick Start chapter.
 * update generateDoc.bat. exclude haxe and flash default package.
+* update license. MIT LICENSE.
+* add LICENSE file. update README.md
+* remove license.txt
 
 ## August 4, 2016
 * ver 0.2
