@@ -195,7 +195,7 @@ this is an error by haxe compiler...( I think. )
 **private static** accessor's getter/setter function is force change **public static** in builded AS3 code.  
 this is causing collision to native getter/setter, and to disable native getter/setter.  
 I don't know why happened.  
-Therefore, VorbisAS static accessor is not working. masterVolume, pan, loadComplete Signal, etc...
+Therefore, VorbisAS static accessor is not working. masterVolume, loadComplete Signal, etc...
 
 but, you have a another way.
 
