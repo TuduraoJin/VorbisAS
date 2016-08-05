@@ -4,7 +4,7 @@ This is OggVorbis playback library for Flash and AIR.
 
 API like SoundAS.
 
-coded Haxe 3.2.1
+written by Haxe 3.2.1
 
 ## Features
 * Clean modern API
@@ -41,7 +41,7 @@ Access:
 Loading / Unloading: 
 
 *    **VorbisAS.addSound**(type:String, sound:VorbisSound):Void
-*    **VorbisAS.addSoundBytes**(type:String, bytes:Bytes):Void
+*    **VorbisAS.addSoundBytes(type:String, bytes:Bytes):Void
 *    **VorbisAS.loadSound**(url:String, type:String, buffer:Int = 100):Void
 *    **VorbisAS.removeSound**(type:String):void
 *    **VorbisAS.removeAll**():void
