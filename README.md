@@ -214,7 +214,7 @@ example
 
 
 ## License
-DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE. see [license.txt]
+MIT LICENSE. see [LICENSE]
 
 ## fork sources
 If you want to customize sources, check these amazing repositories.
