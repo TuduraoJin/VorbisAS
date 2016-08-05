@@ -167,7 +167,7 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
 
     //Loop twice, and trigger something when all loops are finished.
     VorbisAS.play(MUSIC1, 1, 0, 2).soundCompleted.add(function(vi:VorbisInstance){
-        if(vi.loopsRemaining == -1){
+        if(vi.loopsRemaining == 0){
             trace("Loops completed!");
             vi.soundCompleted.removeAll();
         }
