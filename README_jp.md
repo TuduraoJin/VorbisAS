@@ -16,8 +16,8 @@
 ## クイックスタート
 このライブラリを使うにあたって、まず、2つのSWCファイルをあなたのプロジェクトにインポートする必要があります。
 
-* lib/as3-signals-v0.8.swc
-* bin/VorbisAS.swc
+* [lib/as3-signals-v0.8.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)
+* [bin/VorbisAS.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/bin)
 
 これで準備はOKです。
 あとは、VorbisASの機能を使う前に、最初にVorbisAS.initializeメソッドを呼び出す必要があります。
@@ -26,12 +26,14 @@
 
 これでVorbisASは使えるようになりました。エンジョイしてください。
 
-**もしあなたが ActionScript3 ユーザの場合**、ATTENSIONonAS3.mdを必ず読んでください。
+**もしあなたが ActionScript3 ユーザの場合**、[ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
+を必ず読んでください。
 
 
 ## API Overview
 
-ドキュメント全文は次のファイルを参照してください。 [doc/pages/index.html]
+ドキュメント全文は次のファイルを参照してください。 [doc/pages/index.html](https://github.com/TuduraoJin/VorbisAS/blob/master/doc/pages/index.html)
+
 
 ### VorbisAS
 
@@ -192,7 +194,7 @@ Playback:
 
 ## ライセンス
 MIT ライセンスです。
-詳しくは　[LICENSE]　ファイルを見てください。    
+詳しくは　[LICENSE](https://github.com/TuduraoJin/VorbisAS/blob/master/LICENSE)　ファイルを見てください。    
 簡単に言えば、コピーライトだけ書いてくれれば自由に使っていただいて構いません。
 
 ## フォークしたソース

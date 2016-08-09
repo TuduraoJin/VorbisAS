@@ -6,7 +6,7 @@ API like SoundAS.
 
 coded Haxe 3.2.1
 
-日本語のREADMEはこちら [README_jp.md]
+日本語のREADMEはこちら [README_jp.md](https://github.com/TuduraoJin/VorbisAS/blob/master/README_jp.md)
 
 ## Features
 * Clean modern API
@@ -20,8 +20,8 @@ coded Haxe 3.2.1
 ## Quick Start
 you need import 2 SWC file in your project.
 
-* lib/as3-signals-v0.8.swc
-* bin/VorbisAS.swc
+* [lib/as3-signals-v0.8.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)
+* [bin/VorbisAS.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/bin)
 
 it's done.
 
@@ -32,12 +32,12 @@ you must call first VorbisAS.initialize.
 ok. VorbisAS is available now.
 you can use VorbisAS. enjoy!
 
-**If you are AS3 user**. you need check [ATTENSIONonAS3.md]
+**If you are AS3 user**. you need check [ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
 
 
 ## API Overview
 
-Full documentation can be found here: [doc/pages/index.html]
+Full documentation can be found here: [doc/pages/index.html](https://github.com/TuduraoJin/VorbisAS/blob/master/doc/pages/index.html)
 
 ### VorbisAS
 This Class is the main interface for the library. It's responsible for loading and controlling all sounds globally. 
@@ -194,7 +194,7 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
 
 
 ## License
-MIT LICENSE. see [LICENSE]
+MIT LICENSE. see [LICENSE](https://github.com/TuduraoJin/VorbisAS/blob/master/LICENSE)
 
 ## fork sources
 If you want to customize sources, check these amazing repositories.
@@ -206,6 +206,6 @@ If you want to customize sources, check these amazing repositories.
 ## using external libraries
 **you need import as3-signals library.**
 VorbisAS library don't contained Signal.
-import Signal SWC file from **lib** directory.
+import Signal SWC file from **[lib](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)** directory.
 
 * [as3-signals](https://github.com/robertpenner/as3-signals)

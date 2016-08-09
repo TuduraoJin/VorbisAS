@@ -18,7 +18,7 @@ example
 
     VorbisAS.get_volume();
 	var vi:VorbisInstance = VorbisAS.play(FILE_MUSIC);
-	vi.get_isPlaying();	// getter
+	vi.get_isPlaying();     // getter
 	vi.set_volume(0.5);     // setter
 	
 
@@ -76,7 +76,7 @@ When haxe code compile to SWC.
 field(get,set) is not defined native accessor.
 because ,field(get,set) is not physical.
 sure, that's right.  
-see web documents [https://haxe.org/manual/class-field-property-rules.html]
+see web documents [https://haxe.org/manual/class-field-property-rules.html](https://haxe.org/manual/class-field-property-rules.html)
 
 use @:isVar metatag , looks like fine on Haxe.
 but AS3...  
@@ -158,6 +158,6 @@ please check following memo...
 * shouldn't use haxe compile option [-D swf-protected]. It is cause some runtime error on AS3. TypeError 1006.
 * shouldn't use metatag [@:protected] to private field. If set this tag, field is changed static field.
 
-these problems found on haxe 3.2.1. and FlashDevelop 5.1.1.1.
-Just maybe, it might be fixed in later versions.
+these problems found on haxe 3.2.1. and FlashDevelop 5.1.1.1.     
+Just maybe, it might be fixed in later versions.     
 I hope!
