@@ -52,6 +52,9 @@ class VorbisASTest extends Sprite
 		trace("init");
 		this.removeEventListener(Event.ADDED_TO_STAGE, init);
 		
+		// initialize VorbisAS
+		VorbisAS.initialize();
+		
 		//Load sound from an external file
 		VorbisAS.loadSound(ASSETS_PATH + FILE_CLICK, FILE_CLICK);
 		VorbisAS.loadSound(ASSETS_PATH + FILE_MUSIC, FILE_MUSIC);
@@ -88,6 +91,13 @@ class VorbisASTest extends Sprite
 				trace( "key [8] some property Test.");
 				trace( "key [9] loop Test.");
 				trace( "---------------------------");
+				
+				trace( FILE_CLICK , "length", VorbisAS.getSound(FILE_CLICK).sound.length);
+				trace( FILE_MUSIC , "length", VorbisAS.getSound(FILE_MUSIC).sound.length);
+				trace( FILE_LOOP , "length", VorbisAS.getSound(FILE_LOOP).sound.length);
+				trace( FILE_SOLO1 , "length", VorbisAS.getSound(FILE_SOLO1).sound.length);
+				trace( FILE_SOLO2 , "length", VorbisAS.getSound(FILE_SOLO2).sound.length);
+				
 			}
 		});
 		
@@ -175,17 +185,17 @@ class VorbisASTest extends Sprite
 				trace("resume and waiting playComplete.");
 				VorbisAS.resume(FILE_MUSIC).soundCompleted.addOnce(
 					function( si:VorbisInstance ):Void{
-						VorbisAS.playFx(FILE_SOLO1);
-						VorbisAS.playFx(FILE_SOLO2);
+						VorbisAS.playFx(FILE_SOLO1,1,0,3);
+						VorbisAS.playFx(FILE_SOLO2,1,0,3);
 						Timer.delay( function():Void{
 							VorbisAS.pauseAll();
 							trace("pauseAll");
-						}, 700);
+						}, 1500);
 						
 						Timer.delay( function():Void{
 							VorbisAS.resumeAll();
 							trace("resumeAll");
-						}, 1300);
+						}, 2000);
 					}
 				);
 			},
@@ -210,10 +220,10 @@ class VorbisASTest extends Sprite
 		
 		// fadeAllfrom
 		Timer.delay( function():Void{
-			VorbisAS.playLoop(FILE_MUSIC);
-			VorbisAS.playFx(FILE_SOLO1);
-			VorbisAS.playFx(FILE_SOLO2);
-			VorbisAS.fadeAllFrom(0, 1, 500);
+			VorbisAS.playLoop(FILE_MUSIC,0);
+			VorbisAS.playFx(FILE_SOLO1,0);
+			VorbisAS.playFx(FILE_SOLO2,0);
+			VorbisAS.fadeAllFrom(0, 1, 1000);
 			trace("fadeAllFrom 3 sounds volume 0 -> 1");
 		}, 5000);
 		
@@ -321,12 +331,6 @@ class VorbisASTest extends Sprite
 		var music:VorbisManager = VorbisAS.group("music");
 		var solos:VorbisManager = VorbisAS.group("solos");
 		
-		// load sound
-		//music.loadSound(ASSETS_PATH + FILE_MUSIC, FILE_MUSIC);
-		
-		//solos.loadSound(ASSETS_PATH + FILE_SOLO1, FILE_SOLO1);
-		//solos.loadSound(ASSETS_PATH + FILE_SOLO2, FILE_SOLO2);
-		
 		// play sound
 		music.playLoop(FILE_MUSIC);
 		
@@ -407,6 +411,10 @@ class VorbisASTest extends Sprite
 	{
 		trace("isPlaying / isPaused");
 		VorbisAS.play(FILE_SOLO2);
+		VorbisAS.getSound(FILE_SOLO2).soundCompleted.addOnce(
+			function( vi:VorbisInstance ):Void{
+					trace(" sound complete. isPlayed=", vi.isPlaying); // not dispatch
+			});
 		
 		Timer.delay( function():Void{
 			trace("play.  isPlayed=",VorbisAS.getSound(FILE_SOLO2).isPlaying);
@@ -423,21 +431,21 @@ class VorbisASTest extends Sprite
 		}, 2000);
 		
 		// check stopAtZero 
-		// fade関連メソッドでstopAtZero=trueでstopした場合、onCompleteシグナルはディスパッチされない。
-		// この場合はfade.endedシグナルを使用する。
+		// if stopAtZero is true when do fadeIn/Out, not dispatch onComplete signal.
+		// use fade.ended signal. (fade is SoundTween)
 		
 		Timer.delay( function():Void{
-			trace("stopAtZero");
-			var si:VorbisInstance = VorbisAS.play(FILE_SOLO2);
-			si = si.fadeTo(0);
-			si.fade.stopAtZero = true;
+			var vi:VorbisInstance = VorbisAS.play(FILE_LOOP);
+			vi = vi.fadeTo(0);
+			vi.fade.stopAtZero = true;
+			trace("fade. stopAtZero ", vi.fade.stopAtZero );
 			
-			si.soundCompleted.addOnce(function(si:VorbisInstance):Void{
-				trace(" sound complete. isPlayed=", si.isPlaying); // not dispatch
+			vi.soundCompleted.addOnce(function(vi:VorbisInstance):Void{
+				trace(" sound complete. isPlayed=", vi.isPlaying); // not dispatch
 			});
 			
-			si.fade.ended.addOnce(function(si:VorbisInstance):Void{
-				trace(" soundTween ended. isPlayed=", si.isPlaying); // dispatch
+			vi.fade.ended.addOnce(function(vi:VorbisInstance):Void{
+				trace(" soundTween ended. isPlayed=", vi.isPlaying); // dispatch
 			});
 
 		}, 4000);

@@ -31,7 +31,8 @@ class VorbisSoundChannel implements IEventDispatcher {
 	 */
     public var position(get, never):Float;
     function get_position():Float {
-        return reader.currentMillisecond;
+        //return reader.currentMillisecond;	// return Illegal value( about Actual time + 500ms). in my case.
+        return channel.position;
     }
 
     public var rightPeak(get, never):Float;
@@ -134,7 +135,7 @@ class VorbisSoundChannel implements IEventDispatcher {
     function onSampleData(event:SampleDataEvent):Void {
         var output:BytesOutput = new BytesOutput();
         untyped output.b = event.data;
-
+		
         var n = 0;
         for (i in 0...8192) {
             var k = 8192 - n;

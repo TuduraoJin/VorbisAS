@@ -16,7 +16,7 @@ class VorbisTween
 	public var duration:Float;
 	public var sound:VorbisInstance;
 	
-	private var isComplete(default, null):Bool;
+	public var isComplete(default,null):Bool;
 	private var isMasterFade:Bool;
 	
 	public var ended:Signal;

@@ -94,17 +94,16 @@ class VorbisSound implements IEventDispatcher{
 	 * dispatch event Event.COMPLETE when loading completed 
 	 * 
 	 * @param	url OggVorbis file URL.
-	 * @eventType	Event.COMPLETE	loading completed.
-	 * @eventType	ProgressEvent.PROGRESS	loading processing.
-	 * @eventType	IOErrorEvent.IO_ERROR	loading failed.
-	 * @throws	ArgumentError	url is null.
+	 * @eventType	Event.COMPLETE	loading completed.  
+	 * @eventType	ProgressEvent.PROGRESS	loading processing.  
+	 * @eventType	IOErrorEvent.IO_ERROR	loading failed.  
+	 *    @throws	ArgumentError	url is null.
 	 */
 	public function load( url:String ):Void
 	{
 		this.url = url;
 		if ( url == null ){	
 			throw new ArgumentError("[VorbisSound] load() url is null.");
-			//trace("[VorbisSound] load() url is null.");
 			return;
 		}
 		us.addEventListener( Event.COMPLETE , onComplete );

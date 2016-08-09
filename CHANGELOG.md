@@ -1,5 +1,26 @@
 CHANGELOG
 =========
+## August 9, 2016
+* ver 0.3
+* change VorbisManager.loadSound. remove argument buffer.
+* update comments and Doc.
+* update README.
+* add ATTENSIONonAS3.md. README_jp.md
+
+
+## August 8, 2016
+* bugfix VorbisSoundChannel. position return Illegal value( about Actual time + 500ms).  change Reader.currentMillisecond -> SoundChannel.position.
+* update VorbisInstance,VorbisManager. some accessor have local field.
+* bugfix @:protected metatag. this tag is change to static field.
+* test on AS3 over... perhaps working...
+* add testAS3.
+
+## August 6, 2016
+* bugfix VorbisTween.isComplete property. access private -> public.
+* bugfix accessor problem.
+* bug   static manager initialzie error................. thinking now.
+
+
 ## August 5, 2016
 * ver 0.2.1
 * update comments. VorbisAS, VorbisInstance, VorbisManager, VorbisTween.
@@ -56,3 +77,4 @@ CHANGELOG
 * bugfix VorbisSound constructor. loopstart is startMillisecond. this is segmentLoop. change to loopstart is 0 everytime.
 * update VorbisSoundInstance,VorbisSoundManager. deleete enableSeamlessLoop.
 * update test classes...
+

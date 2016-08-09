@@ -1,54 +1,51 @@
 # VorbisAS
 
-This is OggVorbis playback library for Flash and AIR.
+このライブラリはFlash、AIR上でOggVorbisファイルの再生をサポートします。
+このライブラリのAPIはSoundASを参考にしています。
+使用したHaxeのバージョン 3.2.1
 
-API like SoundAS.
-
-coded Haxe 3.2.1
-
-日本語のREADMEはこちら [README_jp.md]
-
-## Features
-* Clean modern API
+## 機能概要
+* Clean modern API　
 * API Chaining: VorbisAS.play("music").fadeTo(0);
-* Supports groups of sounds
-* Supports seamless looping
-* Built-in Tweening system, no dependancies
+* サウンドのグルーピングをサポートします。例えばBGMグループとSEグループを分けて管理したりなど。
+* シームレスなループをサポートします。
+* 内部に自前のTweenシステムを持っており、外部のTweenライブラリは必要ありません。Tweenはフェード処理に使用しています。
 * Modular API: Use VorbisInstance directly and ignore the rest.
-* Non-restrictive and unambigous license
+* 制限が緩く、自由に使用できるライセンスです。
 
-## Quick Start
-you need import 2 SWC file in your project.
+## クイックスタート
+このライブラリを使うにあたって、まず、2つのSWCファイルをあなたのプロジェクトにインポートする必要があります。
 
 * lib/as3-signals-v0.8.swc
 * bin/VorbisAS.swc
 
-it's done.
-
-you must call first VorbisAS.initialize.
+これで準備はOKです。
+あとは、VorbisASの機能を使う前に、最初にVorbisAS.initializeメソッドを呼び出す必要があります。
 
 	VorbisAS.initialize();
 
-ok. VorbisAS is available now.
-you can use VorbisAS. enjoy!
+これでVorbisASは使えるようになりました。エンジョイしてください。
 
-**If you are AS3 user**. you need check [ATTENSIONonAS3.md]
+**もしあなたが ActionScript3 ユーザの場合**、ATTENSIONonAS3.mdを必ず読んでください。
 
 
 ## API Overview
 
-Full documentation can be found here: [doc/pages/index.html]
+ドキュメント全文は次のファイルを参照してください。 [doc/pages/index.html]
 
 ### VorbisAS
-This Class is the main interface for the library. It's responsible for loading and controlling all sounds globally. 
+
+このクラスはライブラリのメインインターフェイスを担います。
+VorbisASクラスはファイルのロードやサウンドのコントロールをグローバルに行います。
+
 
 Initialize:
 
-*    **VorbisAS.initialize** initialize VorbisAS. you need call first.
+*    **VorbisAS.initialize** VorbisASの初期化処理を行います。一番最初に呼び出してください。
 
 Access:
 
-*    **VorbisAS.manager** use to direct access static instance.
+*    **VorbisAS.manager** VorbisASの実体であるstaticインスタンスに直接アクセスできます。
 
 Loading / Unloading: 
 
@@ -78,7 +75,7 @@ Playback:
 *    **VorbisAS.fadeMasterTo**(endVolume:Float = 1, duration:Float = 1000, stopAtZero:Bool = true):Void
 
 ####VorbisInstance
-Controls playback of individual sounds, allowing you to easily stop, start, resume and set volume or position.
+単体の音楽をコントロールします。stop,start,resume と volume変更、再生位置変更を簡単に行えます。
 
 *     **play**(volume:Float = 1, startTime:Float = 0, loops:Int = 0, allowMultiple:Bool = true):VorbisInstance
 *     **pause**():VorbisInstance
@@ -97,36 +94,36 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
 
 ### Loading
 
-    //Load sound from an external file
+    // 外部のサウンドファイルをロードします。
     VorbisAS.loadSound("assets/Click.ogg", "click");
 
-    //Inject an already loaded Sound instance
+	// すでに生成済みのインスタンスを登録します。
     VorbisAS.addSound("click", clickSound);
 	
-	//Inject an already loaded OggVorbis binary.
+	// すでにロード済みのOggVorbisバイナリを登録します。
 	VorbisAS.addSoundBytes("click", bytes); //bytes is Bytes class(ByteArray on AS3). loaded by URLStream...etc
 	
 ### Basic Playback
 
     //Play sound.
-        //allowMultiple: Allow multiple overlapping sound instances.
-        //allowInterrupt: If this sound is currently playing, start it over.
+        //allowMultiple:　同時に複数のインスタンスの再生を許可します。（効果音のように同じ音を重ねて鳴らす場合に使用）
+        //allowInterrupt: すでに再生されているときに、前の音を一旦停止して最初から再生します。
     VorbisAS.play("click", volume, startTime, loops, allowMultiple, allowInterrupt);
 
-    //Shortcut for typical game fx (no looping, allows for multiple instances)
+	// ゲーム効果音として鳴らす場合のショートカット関数　（ループなし、多重再生あり）
     VorbisAS.playFx("click");
 
-    //Shortcut for typical game music (loops forever, no multiple instances)
+	// BGMとして鳴らす場合のショートカット関数（無限ループ、単一再生）
     VorbisAS.playLoop("music");
 
-    //Toggle Mute for all sounds
+	// 全サウンドのミュートを切り替える。
     VorbisAS.mute = !VorbisAS.mute;
 
     //PauseAll / ResumeAll
     VorbisAS.pauseAll();
     VorbisAS.resumeAll();
     
-    //Toggle Pause on individual song
+	// 単独サウンドインスタンスのポーズ/レジューム切り替え
     var sound:VorbisInstance = VorbisAS.getSound("music");
     (sound.isPaused)? sound.resume() : sound.pause();
 
@@ -141,11 +138,11 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
     //Create a group
     var musicGroup:VorbisManager = VorbisAS.group("music");
 
-    //Add sound(s) to group
+	// グループに音楽を登録
     musicGroup.loadSound("assets/TitleMusic.mp3", "titleMusic");
     musicGroup.loadSound("assets/GameMusic.mp3", "gameMusic");
 
-    //Use entire VorbisAS API on Group:
+    // グループでもVorbisASと同じAPIを使用できます
     musicGroup.play("titleMusic")
     musicGroup.volume = .5;
     musicGroup.mute = muteMusic;
@@ -165,19 +162,19 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
     //Fade from .3 to .7 over 3 seconds
     VorbisAS.getSound("click").fadeFrom(.3, .7, 3000);
 
-	//Manage a VorbisInstance directly and ignore VorbisAS
+	// VorbisASを介さずに、VorbisInstanceを直接操作する。
     var sound:VorbisInstance = new VorbisInstance(mySound, "click");
     sound.play(volume);
     sound.position = 500; //Set position of sound in milliseconds
     sound.volume = .5; 
 	sound.fadeTo(0);
 
-    //String 2 songs together
+	// 2つの音楽をつなげて連続で再生する。
     VorbisAS.play(MUSIC1).soundCompleted.addOnce(function(si:VorbisInstance){
         VorbisAS.playLoop(MUSIC2);
     });
 
-    //Loop twice, and trigger something when all loops are finished.
+	// 2回ループ再生し、ループ完了後に何らかの処理をする。
     VorbisAS.play(MUSIC1, 1, 0, 2).soundCompleted.add(function(vi:VorbisInstance){
         if(vi.loopsRemaining == 0){
             trace("Loops completed!");
@@ -193,19 +190,21 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
 
 
 
-## License
-MIT LICENSE. see [LICENSE]
+## ライセンス
+MIT ライセンスです。
+詳しくは　[LICENSE]　ファイルを見てください。    
+簡単に言えば、コピーライトだけ書いてくれれば自由に使っていただいて構いません。
 
-## fork sources
-If you want to customize sources, check these amazing repositories.
+## フォークしたソース
+もし、ソースを編集する気があるなら、以下の素晴らしいリポジトリをチェックしておくとよいでしょう。
 
 * [treefortress/SoundAS](https://github.com/treefortress/SoundAS/)
 * [shohei909/haxe\_stb\_ogg\_sound](https://github.com/shohei909/haxe_stb_ogg_sound)
 * [nothings/stb single-file public domain libraries for C/C++](https://github.com/nothings/stb)
 
-## using external libraries
-**you need import as3-signals library.**
-VorbisAS library don't contained Signal.
-import Signal SWC file from **lib** directory.
+## 使用する外部ライブラリ
+このライブラリを使用するにあたって、as3-signalsライブラリをインポートする必要があります。
+VorbisASにはas3-signalsは含まれていません。SWCコンパイルコマンドでも含まないようにしています。
+インポートするas3-signalsのSWCファイルは lib　フォルダに入っています。
 
 * [as3-signals](https://github.com/robertpenner/as3-signals)

@@ -25,46 +25,148 @@ class VorbisManager
 	private var instancesByType:Map<String, VorbisInstance>;
 	private var groupsByName:Map<String, VorbisManager>;
 	
+	
 	/**
 	 * grouped manager Array.
 	 */
-	public var groups(default, null):Array<VorbisManager>;
+	public var groups:Array<VorbisManager>;
 	
 	private var activeTweens:Array<VorbisTween>;
 	private var ticker:Shape;
-	private var _tickEnabled:Bool;
-	private var _mute:Bool;
-	private var _volume:Float;
-	private var _pan:Float;
-	private var _masterVolume:Float;
 	private var _masterTween:VorbisTween;
 	private var _searching:Bool;
 	
 	/**
 	 * Dispatched when an external Sound has completed loading. 
 	 */
-	public var loadCompleted(default,null):Signal;
+	public var loadCompleted:Signal;
 	
 	/**
 	 * Dispatched when an external Sound has failed loading. 
 	 */
-	public var loadFailed(default, null):Signal;
+	public var loadFailed:Signal;
 	
 	/**
 	 * parent manager.
 	 */
 	public var parent:VorbisManager;
 	
-	
-	public function new() {
-		init();
+	/**
+	 * Mute all instances.
+	 */
+	public var mute(get, set):Bool;
+	private var _mute:Bool;
+	private function get_mute():Bool {	return this._mute;	 }
+	private function set_mute(value:Bool):Bool {
+		_mute = value;
+		for ( si in instances ){
+			si.mute = _mute;
+		}
+		return _mute;
 	}
 	
 	/**
+	 * Set volume on all instances
+	 */
+	public var volume(get, set):Float;
+	private var _volume:Float;
+	private function get_volume():Float {	return this._volume;	 }
+	private function set_volume(value:Float):Float {
+		if ( value < 0 ){ value = 0; } else if ( 1 < value || Math.isNaN(value) ){ value = 1; }
+		_volume = value;
+		
+		for ( si in instances ){
+			si.volume = _volume;
+		}
+		return _volume;
+	}
+	
+	/**
+	 * Set master volume, which will me multiplied on top of all existing volume levels.
+	 */
+	public var masterVolume(get, set):Float;
+	private var _masterVolume:Float;
+	private function get_masterVolume():Float {		return this._masterVolume;	 }
+	private function set_masterVolume(value:Float):Float {
+		if ( value < 0 ){ value = 0; } else if ( 1 < value || Math.isNaN(value) ){ value = 1; }
+		_masterVolume = value;
+		
+		var sound:VorbisInstance;
+		for ( si in instances ){
+			sound = si;
+			sound.volume = sound.volume; //update SoundInstance mixedVolume.
+		}
+		return _masterVolume;
+	}
+	
+	/**
+	 * Set pan on all instances
+	 */
+	public var pan(get, set):Float;
+	private var _pan:Float;
+	private function get_pan():Float {	return this._pan;	 }
+	private function set_pan(value:Float):Float {
+		_pan = value;
+		for ( si in instances ){
+			si.pan = _pan;
+		}
+		return _pan;
+	}
+	
+	public var soundTransform(never, set):SoundTransform;
+	/**
+	 * Set soundTransform on all instances. 
+	 * always return null.
+	 */
+	private function set_soundTransform(value:SoundTransform):SoundTransform {
+		if ( Lambda.empty(instances) ){		return null;	}
+		for ( si in instances ){
+			si.soundTransform = value;
+		}
+		return null;
+	}
+	
+	public var tickEnabled(get, set):Bool;
+	private var _tickEnabled:Bool;
+	private function get_tickEnabled():Bool {	return this._tickEnabled;	 }
+	private function set_tickEnabled(value:Bool):Bool {
+		if(value == _tickEnabled){ return _tickEnabled; }
+		_tickEnabled = value;
+		if(_tickEnabled){
+			if( ticker == null ){ ticker = new Shape(); }
+			ticker.addEventListener(Event.ENTER_FRAME, onTick);
+		} else {
+			ticker.removeEventListener(Event.ENTER_FRAME, onTick); 
+		}
+		return _tickEnabled;
+	}
+	
+	//-----------------------------------------------
+	
+	public function new() {
+		//Create external signals
+		init();
+		loadCompleted = new Signal(VorbisInstance);
+		loadFailed = new Signal(VorbisInstance);
+		_volume = 1;
+		_pan = 0;
+		_masterVolume = 1;
+	}
+	
+	private function init():Void {
+		//Init collections
+		instances = new Array<VorbisInstance>();
+		instancesBySound = new Map<VorbisSound, VorbisInstance>();
+		instancesByType = new Map<String, VorbisInstance>();
+		groupsByName = new Map<String, VorbisManager>();
+		activeTweens = new Array<VorbisTween>();
+	}
+
+	/**
 	 * Play audio by type.
 	 * It must already be loaded into memory using the loadSound() or addSound() or addSoundBytes APIs. 
-	 * @param type
-	 * @param volume
+	 * @param type	specified sound name.
+	 * @param volume	sound play volume.
 	 * @param startTime Starting time in milliseconds
 	 * @param loops Number of times to loop audio, pass -1 to loop forever.
 	 * @param allowMultiple Allow multiple, overlapping instances of this Sound (useful for SoundFX)
@@ -74,8 +176,8 @@ class VorbisManager
 		var si:VorbisInstance = getSound(type);
 		
 		if ( si == null ){
-			trace( "[VorbisSoundAS] Sound with type '" + type+"' does not appear to be loaded." ); 
-			throw ( new Error("[VorbisSoundAS] Sound with type '"+type+"' does not appear to be loaded.")); 
+			trace( "[VorbisAS] Sound with type '" + type+"' does not appear to be loaded." ); 
+			throw ( new Error("[VorbisAS] Sound with type '"+type+"' does not appear to be loaded.")); 
 		}
 		
 		//If we retrieved this instance from another manager, add it to our internal list of active instances.
@@ -192,65 +294,10 @@ class VorbisManager
 	public function fadeMasterFrom(startVolume:Float = 0, endVolume:Float = 1, duration:Float = 1000, stopAtZero:Bool = true):Void {
 		addMasterTween(startVolume, endVolume, duration, stopAtZero);
 	}
-
-	/**
-	 * Mute all instances.
-	 */
-	public var mute(get, set):Bool;
-	private function get_mute():Bool { return _mute; }
-	private function set_mute(value:Bool):Bool {
-		_mute = value;
-		for ( si in instances ){
-			si.mute = _mute;
-		}
-		return _mute;
-	}
-	
-	/**
-	 * Set volume on all instances
-	 */
-	public var volume(get, set):Float;
-	private function get_volume():Float { return _volume; }
-	private function set_volume(value:Float):Float {
-		if ( value < 0 ){ value = 0; } else if ( 1 < value || Math.isNaN(value) ){ value = 1; }
-		_volume = value;
-		
-		for ( si in instances ){
-			si.volume = _volume;
-		}
-		return _volume;
-	}
-	
-	/**
-	 * Set pan on all instances
-	 */
-	public var pan(get, set):Float;
-	private function get_pan():Float { return _pan; }
-	private function set_pan(value:Float):Float {
-		_pan = value;
-		for ( si in instances ){
-			si.pan = _pan;
-		}
-		return _pan;
-	}
-	
-	public var soundTransform(never, set):SoundTransform;
-	/**
-	 * Set soundTransform on all instances. 
-	 */
-	private function set_soundTransform(value:SoundTransform):SoundTransform {
-		for ( si in instances ){
-			si.soundTransform = value;
-		}
-		if ( Lambda.empty(instances) ){
-			return null;
-		}
-		return null;
-	}
 	
 	/**
 	 * Returns a SoundInstance for a specific type.
-	 * @param	type
+	 * @param	type	specified sound name.
 	 * @param	forceNew create new Instance.
 	 * @return	VorbisInstance, return null when not found.
 	 */
@@ -278,7 +325,7 @@ class VorbisManager
 		}
 		
 		if (si == null){
-			trace("[VorbisSoundManager] getSound() Sound with type '"+type+"' some error caused.");
+			trace("[VorbisManager] getSound() Sound with type '"+type+"' some error caused.");
 			_searching = false;
 			return null;
 		}
@@ -294,10 +341,9 @@ class VorbisManager
 	/**
 	 * Preload a sound from a URL or Local Path
 	 * @param url External file path to the sound instance.
-	 * @param type 
-	 * @param buffer not use.
+	 * @param type	 specific sound's name.
 	 */
-	public function loadSound(url:String, type:String, buffer:Int = 100):Void {
+	public function loadSound(url:String, type:String):Void {
 		var si:VorbisInstance = instancesByType[type];
 		if(si != null && si.url == url){ return; }
 		
@@ -313,8 +359,9 @@ class VorbisManager
 	
 	/**
 	 * Inject a sound that has already been loaded.
-	 * @param	type
-	 * @param	sound
+	 * @param	type  specific sound's name.
+	 * @param	sound   VorbisSound instance.
+	 * 
 	 */
 	public function addSound(type:String, sound:VorbisSound):Void {
 		var si:VorbisInstance;
@@ -333,7 +380,7 @@ class VorbisManager
 	/**
 	 * Inject a sound that has already been loaded.
 	 * use OggVorbis format Binary.
-	 * @param	type
+	 * @param	type	specific sound's name.
 	 * @param	bytes OggVorbis format binary.
 	 */
 	public function addSoundBytes(type:String, bytes:Bytes):Void
@@ -356,7 +403,7 @@ class VorbisManager
 	
 	/**
 	 * Remove a sound from memory.
-	 * @param	type
+	 * @param	type	specified sound name.
 	 */
 	public function removeSound(type:String):Void {
 		if( !instancesByType.exists(type) ){ return; }
@@ -393,53 +440,21 @@ class VorbisManager
 	}
 	
 	/**
-	 * Set master volume, which will me multiplied on top of all existing volume levels.
-	 */
-	public var masterVolume(get, set):Float;
-	private function get_masterVolume():Float { return _masterVolume; }
-	private function set_masterVolume(value:Float):Float {
-		if ( value < 0 ){ value = 0; } else if ( 1 < value || Math.isNaN(value) ){ value = 1; }
-		_masterVolume = value;
-		
-		var sound:VorbisInstance;
-		for ( si in instances ){
-			sound = si;
-			sound.volume = sound.volume;
-		}
-		return _masterVolume;
-	}
-	
-	/**
 	 * Return a specific group , create one if it doesn't exist.
-	 * @param	name
+	 * @param	name	group name.
 	 * @return	VorbisManager.
 	 */
 	public function group(name:String):VorbisManager {
-		if( groupsByName[name] == null ){ 
-			groupsByName[name] = new VorbisManager(); 
-			cast (groupsByName[name], VorbisManager).parent = this;
+		if ( groupsByName[name] == null ){ 
+			var vm:VorbisManager = new VorbisManager();
+			vm.parent = this;
+			groupsByName[name] = vm;
 			if( groups == null ){ groups = new Array<VorbisManager>(); }
-			groups.push(groupsByName[name]);
+			groups.push( vm );
 		}
 		return groupsByName[name];
 	}
 	
-	
-	private function init():Void {
-		//Create external signals
-		if( loadCompleted == null ){ loadCompleted = new Signal(VorbisInstance); }
-		if( loadFailed == null ){ loadFailed = new Signal(VorbisInstance); }
-		
-		//Init collections
-		_volume = 1;
-		_pan = 0;
-		_masterVolume = 1;
-		instances = new Array<VorbisInstance>();
-		instancesBySound = new Map<VorbisSound, VorbisInstance>();
-		instancesByType = new Map<String, VorbisInstance>();
-		groupsByName = new Map<String, VorbisManager>();
-		activeTweens = new Array<VorbisTween>();
-	}
 	
 	private function addMasterTween(startVolume:Float, endVolume:Float, duration:Float, stopAtZero:Bool):Void 
 	{
@@ -472,6 +487,14 @@ class VorbisManager
 		tickEnabled = true;
 		return tween;
 	}
+	
+	private function addInstance(si:VorbisInstance):Void {
+		si.mute = _mute;
+		si.manager = this;
+		if( !Lambda.has(instances,si) ){ instances.push(si); }
+		instancesBySound[si.sound] = si;
+		instancesByType[si.type] = si;
+	}
 
 	private function onTick(event:Event):Void {
 		var t:Int = getTimer();
@@ -484,14 +507,6 @@ class VorbisManager
 			i--;
 		}
 		tickEnabled = (activeTweens.length > 0);
-	}
-	
-	private function addInstance(si:VorbisInstance):Void {
-		si.mute = _mute;
-		si.manager = this;
-		if( !Lambda.has(instances,si) ){ instances.push(si); }
-		instancesBySound[si.sound] = si;
-		instancesByType[si.type] = si;
 	}
 	
 	private function onSoundLoadComplete(event:Event):Void {
@@ -507,17 +522,4 @@ class VorbisManager
 		trace("[VorbisSoundAS] ERROR: Failed Loading Sound '"+sound.type+"' @ "+sound.url);
 	}
 	
-	public var tickEnabled(get, set):Bool;
-	private function get_tickEnabled():Bool { return _tickEnabled; }
-	private function set_tickEnabled(value:Bool):Bool {
-		if(value == _tickEnabled){ return _tickEnabled; }
-		_tickEnabled = value;
-		if(_tickEnabled){
-			if( ticker == null ){ ticker = new Shape(); }
-			ticker.addEventListener(Event.ENTER_FRAME, onTick);
-		} else {
-			ticker.removeEventListener(Event.ENTER_FRAME, onTick); 
-		}
-		return _tickEnabled;
-	}
 }
