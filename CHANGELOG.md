@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+## August 10, 2016
+* update compileSWC.hxml add --no-traces.
+* add haxelib.json
+
 ## August 9, 2016
 * ver 0.3
 * change VorbisManager.loadSound. remove argument buffer.

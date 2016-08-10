@@ -1,0 +1,12 @@
+{
+  "name": "VorbisAS",
+  "url" : "https://github.com/TuduraoJin/VorbisAS",
+  "license": "MIT",
+  "tags": ["flash","air", "sound","vorbis"],
+  "description": "This is OggVorbis playback library for Flash and AIR. API like SoundAS.",
+  "version": "0.3.0",
+  "releasenote": "v0.3, haxe 3.2.1",
+  "contributors": ["TuduraoJin"],
+  "dependencies": {"as3-signals":"0.8"
+   }
+}

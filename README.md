@@ -18,7 +18,14 @@ coded Haxe 3.2.1
 * Non-restrictive and unambigous license
 
 ## Quick Start
-you need import 2 SWC file in your project.
+you need import these file in your project.
+
+**Haxe user**    
+
+* [lib/as3-signals-v0.8.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)
+* [src](https://github.com/TuduraoJin/VorbisAS/tree/master/src) directory .hx files.
+
+**ActionScript user**
 
 * [lib/as3-signals-v0.8.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)
 * [bin/VorbisAS.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/bin)
@@ -29,11 +36,12 @@ you must call first VorbisAS.initialize.
 
 	VorbisAS.initialize();
 
-ok. VorbisAS is available now.
+ok. VorbisAS is available now.   
 you can use VorbisAS. enjoy!
 
-**If you are ActionScript3 user**. you need check [ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
-
+###**If you are ActionScript3 user**.
+you need check [ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md).
+There are Note about the API.
 
 ## API Overview
 

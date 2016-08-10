@@ -14,10 +14,18 @@
 * 制限が緩く、自由に使用できるライセンスです。
 
 ## クイックスタート
-このライブラリを使うにあたって、まず、2つのSWCファイルをあなたのプロジェクトにインポートする必要があります。
+このライブラリを使うにあたって、まず、いくつかファイルをあなたのプロジェクトにインポートする必要があります。
+
+**Haxeをお使いの方**    
+
+* [lib/as3-signals-v0.8.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)
+* [src](https://github.com/TuduraoJin/VorbisAS/tree/master/src) directory .hx files.
+
+**ActionScript3をお使いの方**
 
 * [lib/as3-signals-v0.8.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/lib)
 * [bin/VorbisAS.swc](https://github.com/TuduraoJin/VorbisAS/tree/master/bin)
+
 
 これで準備はOKです。
 あとは、VorbisASの機能を使う前に、最初にVorbisAS.initializeメソッドを呼び出す必要があります。
@@ -26,8 +34,9 @@
 
 これでVorbisASは使えるようになりました。エンジョイしてください。
 
-**もしあなたが ActionScript3 ユーザの場合**、[ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
-を必ず読んでください。
+###**もしあなたが ActionScript3 ユーザの場合**
+[ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
+を必ず読んでください。APIに関する注意事項があります。
 
 
 ## API Overview
