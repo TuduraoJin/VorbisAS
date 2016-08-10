@@ -32,7 +32,7 @@ you must call first VorbisAS.initialize.
 ok. VorbisAS is available now.
 you can use VorbisAS. enjoy!
 
-**If you are AS3 user**. you need check [ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
+**If you are ActionScript3 user**. you need check [ATTENSIONonAS3.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3.md)
 
 
 ## API Overview
@@ -54,7 +54,7 @@ Loading / Unloading:
 
 *    **VorbisAS.addSound**(type:String, sound:VorbisSound):Void
 *    **VorbisAS.addSoundBytes**(type:String, bytes:Bytes):Void
-*    **VorbisAS.loadSound**(url:String, type:String, buffer:Int = 100):Void
+*    **VorbisAS.loadSound**(url:String, type:String):Void
 *    **VorbisAS.removeSound**(type:String):void
 *    **VorbisAS.removeAll**():void
 
@@ -153,9 +153,10 @@ Controls playback of individual sounds, allowing you to easily stop, start, resu
     //etc...
 
     //Stop All Groups
-    for(var i:int = VorbisAS.groups.length; i--;){
-        VorbisAS.groups[i].stopAll();
-    }
+	for( g in VorbisAS.groups ){
+		g.stopAll();
+	}
+	
 
 ### Advanced 
 

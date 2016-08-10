@@ -10,7 +10,7 @@
 * サウンドのグルーピングをサポートします。例えばBGMグループとSEグループを分けて管理したりなど。
 * シームレスなループをサポートします。
 * 内部に自前のTweenシステムを持っており、外部のTweenライブラリは必要ありません。Tweenはフェード処理に使用しています。
-* Modular API: Use VorbisInstance directly and ignore the rest.
+* Modular API: VorbisInstanceを使えば、VorbisASやVorbisManagerを介さずにサウンドを直接操作することもできます。
 * 制限が緩く、自由に使用できるライセンスです。
 
 ## クイックスタート
@@ -53,7 +53,7 @@ Loading / Unloading:
 
 *    **VorbisAS.addSound**(type:String, sound:VorbisSound):Void
 *    **VorbisAS.addSoundBytes**(type:String, bytes:Bytes):Void
-*    **VorbisAS.loadSound**(url:String, type:String, buffer:Int = 100):Void
+*    **VorbisAS.loadSound**(url:String, type:String):Void
 *    **VorbisAS.removeSound**(type:String):void
 *    **VorbisAS.removeAll**():void
 
@@ -152,9 +152,9 @@ Playback:
     //etc...
 
     //Stop All Groups
-    for(var i:int = VorbisAS.groups.length; i--;){
-        VorbisAS.groups[i].stopAll();
-    }
+	for( g in VorbisAS.groups ){
+		g.stopAll();
+	}
 
 ### Advanced 
 
