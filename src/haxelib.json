@@ -7,6 +7,6 @@
   "version": "0.3.0",
   "releasenote": "v0.3, haxe 3.2.1",
   "contributors": ["TuduraoJin"],
-  "dependencies": {"as3-signals":"0.8"
+  "dependencies": {
    }
 }
