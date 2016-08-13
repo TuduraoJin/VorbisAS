@@ -64,9 +64,9 @@ class VorbisSoundChannel implements IEventDispatcher {
 	/**
 	 * OggVorbis decoder.
 	 */
-    var reader(default, null):Reader;
-    var loopReader(default, null):Reader;
-    var loopEnd:Int;
+    private var _reader:Reader;
+    private var _loopReader:Reader;
+    private var _loopEnd:Int;
 
 	/**
 	 * initialize.
@@ -77,16 +77,16 @@ class VorbisSoundChannel implements IEventDispatcher {
 	 * @param	loopEndSample
 	 */
     function new (reader:Reader, startSample:Int, loop:Int, loopStartSample:Int, loopEndSample:Int) {
-        this.reader = reader;
+        this._reader = reader;
         this.loop = loop;
-        this.loopEnd = loopEndSample;
+        this._loopEnd = loopEndSample;
 
         currentLoop = 0;
         reader.currentSample = startSample;
 
         if (loop > 1) {
-            loopReader = reader.clone();
-            loopReader.currentSample = loopStartSample;
+            _loopReader = reader.clone();
+            _loopReader.currentSample = loopStartSample;
         }
     }
 
@@ -139,17 +139,17 @@ class VorbisSoundChannel implements IEventDispatcher {
         var n = 0;
         for (i in 0...8192) {
             var k = 8192 - n;
-            if (k > loopEnd - reader.currentSample) {
-                k = loopEnd - reader.currentSample;
+            if (k > _loopEnd - _reader.currentSample) {
+                k = _loopEnd - _reader.currentSample;
             }
             if (k < 1){
                 k = 1;
             }
-            n += reader.read(output, k, 2, 44100, true);
+            n += _reader.read(output, k, 2, 44100, true);
             if (n < 8192) {
                 if (currentLoop < loop - 1) {
                     currentLoop++;
-                    reader = loopReader.clone();
+                    _reader = _loopReader.clone();
                 } else {
                     break;
                 }

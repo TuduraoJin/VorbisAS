@@ -20,9 +20,9 @@ import stb.format.vorbis.Reader;
  * @author Tudurao Jin
  */
 class VorbisSound implements IEventDispatcher{
-    private var rootReader:Reader;
-	private var us:URLStream;
-	private var ed:EventDispatcher;
+    private var _rootReader:Reader;
+	private var _us:URLStream;
+	private var _ed:EventDispatcher;
 	
 	/**
 	 * sound playback length (Millisecond)
@@ -43,8 +43,8 @@ class VorbisSound implements IEventDispatcher{
 	{
 		this.url = url;
 		this.length = 0;
-		this.us = new URLStream();
-		this.ed = new EventDispatcher(this);
+		this._us = new URLStream();
+		this._ed = new EventDispatcher(this);
 		
 		if ( url != null ){	load( url );	}
 	}
@@ -58,19 +58,19 @@ class VorbisSound implements IEventDispatcher{
 	 * @return	VorbisSoundChannel	if don't have loaded data, return null.
 	 */
     public function play(startMillisecond:Float = 0, loops:Int = 0, ?sndTransform:SoundTransform):VorbisSoundChannel {
-		if (rootReader == null) return null;
+		if (_rootReader == null) return null;
 		
         var sound = new Sound();
-        var reader = rootReader.clone();
+        var reader = _rootReader.clone();
         var startSample = reader.millisecondToSample(startMillisecond);
         //var loopStart = startSample;  // segment loop.
         var loopStart = 0;  // always looping start is position 0.
-        var loopEnd = rootReader.totalSample;
+        var loopEnd = _rootReader.totalSample;
 
-        if (rootReader.loopStart != null) {
-            loopStart = rootReader.loopStart;
-            if (rootReader.loopLength != null) {
-                loopEnd = rootReader.loopStart + rootReader.loopLength;
+        if (_rootReader.loopStart != null) {
+            loopStart = _rootReader.loopStart;
+            if (_rootReader.loopLength != null) {
+                loopEnd = _rootReader.loopStart + _rootReader.loopLength;
             }
         }
         return VorbisSoundChannel.play(sound, reader, startSample, loops, loopStart, loopEnd, sndTransform);
@@ -85,8 +85,8 @@ class VorbisSound implements IEventDispatcher{
 	 * @param	bytes OggVorbis binary. 
 	 */
 	public function loadFromBytes( bytes:Bytes ):Void{
-        rootReader = Reader.openFromBytes(bytes);
-        length = rootReader.totalMillisecond;
+        _rootReader = Reader.openFromBytes(bytes);
+        length = _rootReader.totalMillisecond;
 	}
 	
 	/**
@@ -106,10 +106,10 @@ class VorbisSound implements IEventDispatcher{
 			throw new ArgumentError("[VorbisSound] load() url is null.");
 			return;
 		}
-		us.addEventListener( Event.COMPLETE , onComplete );
-		us.addEventListener( ProgressEvent.PROGRESS , onProgress );
-		us.addEventListener( IOErrorEvent.IO_ERROR , onIOError );
-		us.load( new URLRequest( url ) );
+		_us.addEventListener( Event.COMPLETE , onComplete );
+		_us.addEventListener( ProgressEvent.PROGRESS , onProgress );
+		_us.addEventListener( IOErrorEvent.IO_ERROR , onIOError );
+		_us.load( new URLRequest( url ) );
 	}
 	
 	/**
@@ -117,12 +117,12 @@ class VorbisSound implements IEventDispatcher{
 	 * if you want to cancel when loading. use this function.
 	 */
 	public function close():Void{
-		us.close();
-		us.removeEventListener( Event.COMPLETE , onComplete );
-		us.removeEventListener( ProgressEvent.PROGRESS , onProgress );
-		us.removeEventListener( IOErrorEvent.IO_ERROR , onIOError );
+		_us.removeEventListener( Event.COMPLETE , onComplete );
+		_us.removeEventListener( ProgressEvent.PROGRESS , onProgress );
+		_us.removeEventListener( IOErrorEvent.IO_ERROR , onIOError );
 		this.length = 0;
-		this.rootReader = null;
+		this._rootReader = null;
+		_us.close();
 	}
 	
 	/**
@@ -130,12 +130,12 @@ class VorbisSound implements IEventDispatcher{
 	 */
 	private function onComplete(e:Event):Void 
 	{
-		us.removeEventListener( Event.COMPLETE , onComplete );
-		us.removeEventListener( ProgressEvent.PROGRESS , onProgress );
-		us.removeEventListener( IOErrorEvent.IO_ERROR , onIOError );
+		_us.removeEventListener( Event.COMPLETE , onComplete );
+		_us.removeEventListener( ProgressEvent.PROGRESS , onProgress );
+		_us.removeEventListener( IOErrorEvent.IO_ERROR , onIOError );
 		
 		var ba:ByteArray = new ByteArray();
-		us.readBytes( ba );
+		_us.readBytes( ba );
 		loadFromBytes( Bytes.ofData( ba ) );
 		dispatchEvent(e);
 	}
@@ -147,27 +147,27 @@ class VorbisSound implements IEventDispatcher{
 	
 	public function addEventListener(type:String, listener:Dynamic-> Void, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false):Void 
 	{
-		ed.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		_ed.addEventListener(type, listener, useCapture, priority, useWeakReference);
 	}
 	
 	public function dispatchEvent(event:Event):Bool 
 	{
-		return ed.dispatchEvent(event);
+		return _ed.dispatchEvent(event);
 	}
 	
 	public function hasEventListener(type:String):Bool 
 	{
-		return ed.hasEventListener(type);
+		return _ed.hasEventListener(type);
 	}
 	
 	public function removeEventListener(type:String, listener:Dynamic-> Void, useCapture:Bool = false):Void 
 	{
-		ed.removeEventListener(type, listener, useCapture);
+		_ed.removeEventListener(type, listener, useCapture);
 	}
 	
 	public function willTrigger(type:String):Bool 
 	{
-		return ed.willTrigger(type);
+		return _ed.willTrigger(type);
 	}
 
 }
