@@ -17,7 +17,7 @@ class VorbisTween
 	public var sound:VorbisInstance;
 	
 	public var isComplete(default,null):Bool;
-	private var isMasterFade:Bool;
+	private var _isMasterFade:Bool;
 	
 	public var ended:Signal;
 	public var stopAtZero:Bool;
@@ -29,7 +29,7 @@ class VorbisTween
 		}
 		
 		ended = new Signal(VorbisInstance);
-		this.isMasterFade = isMasterFade;
+		this._isMasterFade = isMasterFade;
 		init(startVolume, endVolume, duration);
 	}
 	
@@ -49,7 +49,7 @@ class VorbisTween
 	public function update(t:Int):Bool {
 		if (isComplete){ return isComplete; }
 		
-		if (isMasterFade){
+		if (_isMasterFade){
 			if (t - startTime < duration){
 				VorbisAS.masterVolume = easeOutQuad(t - startTime, startVolume, endVolume - startVolume, duration);
 			}else{
@@ -74,7 +74,7 @@ class VorbisTween
 	public function end(applyEndVolume:Bool = false):Void
 	{
 		isComplete = true;
-		if (!isMasterFade){
+		if (!_isMasterFade){
 			if (applyEndVolume){
 				sound.volume = endVolume;
 			}

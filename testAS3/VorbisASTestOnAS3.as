@@ -430,14 +430,14 @@ package
 			setTimeout(function():void{
 				var vi:VorbisInstance = VorbisAS.play(FILE_LOOP);
 				vi = vi.fadeTo(0);
-				vi.get_fade().stopAtZero = true;
-				trace("fade. stopAtZero ",vi.get_fade().stopAtZero );
+				vi.fade.stopAtZero = true;
+				trace("fade. stopAtZero ",vi.fade.stopAtZero );
 				
 				vi.soundCompleted.addOnce(function(vi:VorbisInstance):void{
 					trace(" sound complete. isPlayed=", vi.get_isPlaying()); // not dispatch
 				});
 				
-				vi.get_fade().ended.addOnce(function(vi:VorbisInstance):void{
+				vi.fade.ended.addOnce(function(vi:VorbisInstance):void{
 					trace(" soundTween ended. isPlayed=", vi.get_isPlaying()); // dispatch
 				});
 				
@@ -552,7 +552,7 @@ package
 			
 			trace("---");
 			// VorbisInstance
-			trace("VorbisInstance.fade",vi.get_fade());
+			trace("VorbisInstance.fade",vi.fade );
 			trace("VorbisInstance.isPaused",vi.get_isPaused());
 			trace("VorbisInstance.isPlaying",vi.get_isPlaying());
 			trace("VorbisInstance.loops",vi.get_loops());
@@ -568,8 +568,8 @@ package
 			
 			trace("---");
 			// VorbisTween
-			if ( vi.get_fade() ){
-				trace("VorbisTween.isComplete",vi.get_fade().isComplete);
+			if ( vi.fade ){
+				trace("VorbisTween.isComplete",vi.fade.isComplete);
 			}
 			
 			trace("---");

@@ -58,8 +58,7 @@ class VorbisInstance
 	 */
 	public var oldChannels:Array<VorbisSoundChannel>;
 	
-	private var pauseTime:Float;
-	private var currentTween:VorbisTween;
+	private var _pauseTime:Float;
 	
 	/**
 	 * use to Infinitely Loop.
@@ -73,7 +72,6 @@ class VorbisInstance
 	 * -1 is infinitely loop.
 	 */
 	public var loops(get, set):Int;
-	
 	private var _loops:Int;
 	
 	function get_loops():Int {	return this._loops;	}
@@ -108,14 +106,12 @@ class VorbisInstance
 	 * fade control property.
 	 * if you want to check fade complete, use fade.ended signal.
 	 */
-	public var fade(get, never):VorbisTween;
-	private function get_fade():VorbisTween {	return currentTween;	}
+	public var fade:VorbisTween;
 	
 	/**
 	 * Mute current sound.
 	 */
 	public var mute(get, set):Bool;
-	
 	private var _mute:Bool;
 	
 	private function get_mute():Bool {		return _mute;	}
@@ -133,7 +129,6 @@ class VorbisInstance
 	 * Indicates whether this sound is currently playing.
 	 */
 	public var isPlaying(get, never):Bool;
-	
 	private var _isPlaying:Bool;
 	private function get_isPlaying():Bool{	return this._isPlaying;	}
 	
@@ -142,7 +137,7 @@ class VorbisInstance
 	 */
 	public var isPaused(get, never):Bool;
 	private function get_isPaused():Bool {
-		return channel != null && sound != null && pauseTime > 0 && pauseTime < sound.length;
+		return channel != null && sound != null && _pauseTime > 0 && _pauseTime < sound.length;
 	}
 	
 	/**
@@ -165,8 +160,8 @@ class VorbisInstance
 	 * Value between 0 and 1. You can call this while muted to change volume, and it will not break the mute.
 	 */
 	public var volume(get, set):Float;
-	
 	private var _volume:Float;
+	
 	private function get_volume():Float {	return _volume; }
 	private function set_volume(value:Float):Float {
 		//Update the voume value, but respect the mute flag.
@@ -204,8 +199,8 @@ class VorbisInstance
 	 * The left-to-right panning of the sound, ranging from -1 (full pan left) to 1 (full pan right).
 	 */
 	public var pan(get, set):Float;
-	
 	private var _pan:Float;
+	
 	private function get_pan():Float {	return this._pan; }
 	private function set_pan(value:Float):Float 
 	{
@@ -225,7 +220,7 @@ class VorbisInstance
 	private var _soundTransform:SoundTransform;
 	
 	private function get_soundTransform():SoundTransform {
-		if( _soundTransform == null ){ _soundTransform = new SoundTransform(mixedVolume, _pan); }
+		//if( _soundTransform == null ){ _soundTransform = new SoundTransform(mixedVolume, _pan); }
 		return _soundTransform;
 	}
 	
@@ -249,12 +244,13 @@ class VorbisInstance
 		this.sound = sound;
 		this.type = type;
 		manager = VorbisAS.manager;
-		pauseTime = 0;
+		_pauseTime = 0;
 		_volume = 1;	
 		_pan = 0;
 		_soundTransform = new SoundTransform();
 		soundCompleted = new Signal(VorbisInstance);
 		oldChannels = new Array<VorbisSoundChannel>();
+		fade = new VorbisTween(this, 1, 1000);
 	}
 	
 	/**
@@ -288,7 +284,7 @@ class VorbisInstance
 			channel.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			_isPlaying = true;
 		}
-		pauseTime = 0; //Always reset pause time on play
+		_pauseTime = 0; //Always reset pause time on play
 		
 		this.volume = volume;
 		this.mute = mute;
@@ -301,7 +297,7 @@ class VorbisInstance
 	public function pause():VorbisInstance {
 		if(channel == null){ return this; }
 		_isPlaying = false;
-		pauseTime = channel.position;
+		_pauseTime = channel.position;
 		stopChannel(channel);
 		stopOldChannels();
 		return this;
@@ -312,7 +308,7 @@ class VorbisInstance
 	 */
 	public function resume(forceStart:Bool = false):VorbisInstance {
 		if(isPaused || forceStart){
-			play(_volume, pauseTime, _loops, allowMultiple);
+			play(_volume, _pauseTime, _loops, allowMultiple);
 		} 
 		return this;
 	}
@@ -321,7 +317,7 @@ class VorbisInstance
 	 * Stop the currently playing sound and set it's position to 0
 	 */
 	public function stop():VorbisInstance {
-		pauseTime = 0;
+		_pauseTime = 0;
 		stopChannel(channel);
 		channel = null;
 		stopOldChannels();
@@ -334,7 +330,7 @@ class VorbisInstance
 	 * Fade using the current volume as the Start Volume
 	 */
 	public function fadeTo(endVolume:Float, duration:Float = 1000, stopAtZero:Bool = true):VorbisInstance {
-		currentTween = manager.addTween(type, -1, endVolume, duration, stopAtZero);
+		manager.addTween(type, -1, endVolume, duration, stopAtZero);
 		return this;
 	}
 	
@@ -342,7 +338,7 @@ class VorbisInstance
 	 * Fade and specify both the Start Volume and End Volume.
 	 */
 	public function fadeFrom(startVolume:Float, endVolume:Float, duration:Float = 1000, stopAtZero:Bool = true):VorbisInstance {
-		currentTween = manager.addTween(type, startVolume, endVolume, duration, stopAtZero);
+		manager.addTween(type, startVolume, endVolume, duration, stopAtZero);
 		return this;
 	}
 
@@ -358,43 +354,46 @@ class VorbisInstance
 	 * Unload sound from memory.
 	 */
 	public function destroy():Void {
-		soundCompleted.removeAll();
-		try {
-			//sound.close();
-		} catch (e:Error){}
-		sound.close();
-		sound = null;
-		_soundTransform = null;
+		fade.kill();
+		fade = null;
 		stopChannel(channel);
 		channel = null;
-		if ( fade != null ){
-			fade.end(false);
-		}
+		soundCompleted.removeAll();
+		try{
+			sound.close();
+		}catch(e:Error){}
+		sound = null;
+		_soundTransform = null;
 	}
 	
 	/**
 	 * Dispatched when Sound has finished playback
 	 */
 	private function onSoundComplete(event:Event):Void {
-		//trace("stop", ++stopCount);
 		var channel:SoundChannel = cast (event.target, SoundChannel);
 		channel.removeEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 		
 		if ( this.channel != null ){
 			if(channel == this.channel.channel){ 
 				this.channel = null;
-				pauseTime = 0;
+				_pauseTime = 0;
 				_isPlaying = false;
 			}
 		}
 		
 		//Clear out any old channels...
-		for ( ch in oldChannels ){
-			if ( channel == ch.channel ){
+		var idx:Int = oldChannels.length -1;
+		var ch:VorbisSoundChannel;
+		while ( 0 <= idx ){
+			ch = oldChannels[idx];
+			if ( ch.channel == channel ){
 				stopChannel( ch );
-				oldChannels.splice( oldChannels.indexOf(ch), 1);
+				oldChannels.splice( idx, 1);
+				break;
 			}
+			idx--;
 		}
+		
 		// dispatch signal
 		soundCompleted.dispatch(this);
 	}

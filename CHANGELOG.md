@@ -1,11 +1,27 @@
 CHANGELOG
 =========
+
+## ver 0.3.1
+-------------------------------
+## August 13, 2016
+* change create Tween process. to Tween Instance recycle.
+* rename VorbisInstance._currentTween -> fade. and change public, with remove getter get_fade().
+* VorbisInstance.destroy reinstate try-catch.
+
+## August 12, 2016
+* update ATTENSIONonAS3.
+* add ATTENSIONonAS3_jp.md
+* update VorbisInstance,VorbisManager,VorbisSound,VorbisSoundChannel. rename private field to begin with Underscore.
+* update VorbisManager.play. remove Unnecessary instance check processing.
+
 ## August 10, 2016
 * update compileSWC.hxml add --no-traces.
 * add haxelib.json
 
+## ver 0.3
+-------------------------------
+
 ## August 9, 2016
-* ver 0.3
 * change VorbisManager.loadSound. remove argument buffer.
 * update comments and Doc.
 * update README.
@@ -24,9 +40,10 @@ CHANGELOG
 * bugfix accessor problem.
 * bug   static manager initialzie error................. thinking now.
 
+## ver 0.2.1
+-------------------------------
 
 ## August 5, 2016
-* ver 0.2.1
 * update comments. VorbisAS, VorbisInstance, VorbisManager, VorbisTween.
 * change assets. and add assets.md.
 * update compileTest.hxml.
@@ -38,8 +55,10 @@ CHANGELOG
 * add LICENSE file. update README.md
 * remove license.txt
 
+## ver 0.2
+-------------------------------
+
 ## August 4, 2016
-* ver 0.2
 * bugfix VorbisInstance loop and loopsRemaining property.    
 
 	* loop value is...  
@@ -54,9 +73,10 @@ CHANGELOG
 * add generateDoc.bat
 * update comments. VorbisSound,VorbisSoundChannel.
 
+## ver 0.11
+-------------------------------
 
 ## August 3, 2016
-* ver 0.11
 * change VorbisManager set_soundtransform always return null;
 * add VorbisAS.loadSoundBytes function.
 * bugfix VorbisAS.play remove enableSeamlessLoop argument.
@@ -64,8 +84,10 @@ CHANGELOG
 * update VorbisInstance.loop , VorbisSoundChannel.loop. add setter. it can change loop count when already playing.
 * update README.md
 
+## ver 0.1
+-------------------------------
+
 ## August 2, 2016
-* ver 0.1
 * rename classes.  VorbisAS, VorbisInstance, VorbisManager, VorbisTween, VorbisASTest.
 * bugfix VorbisInstance onSoundComplete. null point exception when this.channel is null.
 * add VorbisAS static accesor and fuctions.

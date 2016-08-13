@@ -27,46 +27,45 @@ example
 following properties need directly access getter/setter function.
 
 	// VorbisAS
-	trace("VorbisAS.groups",VorbisAS.get_groups());
-	trace("VorbisAS.loadCompleted",VorbisAS.get_loadCompleted());
-	trace("VorbisAS.loadFailed",VorbisAS.get_loadFailed());
-	trace("VorbisAS.volume",VorbisAS.get_volume());
-	trace("VorbisAS.masterVolume",VorbisAS.get_masterVolume());
-	trace("VorbisAS.mute",VorbisAS.get_mute());
-	trace("VorbisAS.pan",VorbisAS.get_pan());
-	trace("VorbisAS.tickEnabled", VorbisAS.get_tickEnabled());
-	trace("VorbisAS.parent",VorbisAS.get_parent());
+	trace("VorbisAS.groups",		VorbisAS.get_groups());
+	trace("VorbisAS.loadCompleted",	VorbisAS.get_loadCompleted());
+	trace("VorbisAS.loadFailed",	VorbisAS.get_loadFailed());
+	trace("VorbisAS.volume",		VorbisAS.get_volume());
+	trace("VorbisAS.masterVolume",	VorbisAS.get_masterVolume());
+	trace("VorbisAS.mute",			VorbisAS.get_mute());
+	trace("VorbisAS.pan",			VorbisAS.get_pan());
+	trace("VorbisAS.tickEnabled", 	VorbisAS.get_tickEnabled());
+	trace("VorbisAS.parent",		VorbisAS.get_parent());
 	
 	// VorbisInstance
-	trace("VorbisInstance.fade",vi.get_fade());
-	trace("VorbisInstance.isPaused",vi.get_isPaused());
-	trace("VorbisInstance.isPlaying",vi.get_isPlaying());
-	trace("VorbisInstance.loops",vi.get_loops());
-	trace("VorbisInstance.loopsRemaining",vi.get_loopsRemaining());
-	trace("VorbisInstance.manager",vi.manager);
-	trace("VorbisInstance.volume",vi.get_volume());
-	trace("VorbisInstance.masterVolume",vi.get_masterVolume());
-	trace("VorbisInstance.mixedVolume",vi.get_mixedVolume());
-	trace("VorbisInstance.mute",vi.get_mute());
-	trace("VorbisInstance.pan",vi.get_pan());
-	trace("VorbisInstance.position",vi.get_position());
-	trace("VorbisInstance.soundTransform", vi.get_soundTransform());
+	trace("VorbisInstance.fade",			vi.fade);
+	trace("VorbisInstance.isPaused",		vi.get_isPaused());
+	trace("VorbisInstance.isPlaying",		vi.get_isPlaying());
+	trace("VorbisInstance.loops",			vi.get_loops());
+	trace("VorbisInstance.loopsRemaining",	vi.get_loopsRemaining());
+	trace("VorbisInstance.manager",			vi.manager);
+	trace("VorbisInstance.volume",			vi.get_volume());
+	trace("VorbisInstance.masterVolume",	vi.get_masterVolume());
+	trace("VorbisInstance.mixedVolume",		vi.get_mixedVolume());
+	trace("VorbisInstance.mute",			vi.get_mute());
+	trace("VorbisInstance.pan",				vi.get_pan());
+	trace("VorbisInstance.position",		vi.get_position());
+	trace("VorbisInstance.soundTransform", 	vi.get_soundTransform());
 	
 	// VorbisTween
-	if ( vi.get_fade() ){
-		trace("VorbisTween.isComplete",vi.get_fade().isComplete);
-	}
+	trace("VorbisTween.isComplete",		vi.fade.isComplete);
+
 	
 	// VorbisManager
-	trace("VorbisManager.parent",VorbisAS.manager.parent);
-	trace("VorbisManager.groups",VorbisAS.manager.groups);
-	trace("VorbisManager.loadCompleted",VorbisAS.manager.loadCompleted);
-	trace("VorbisManager.loadFailed",VorbisAS.manager.loadFailed);
-	trace("VorbisManager.volume",VorbisAS.manager.get_volume());
-	trace("VorbisManager.masterVolume",VorbisAS.manager.get_masterVolume());
-	trace("VorbisManager.mute",VorbisAS.manager.get_mute());
-	trace("VorbisManager.pan",VorbisAS.manager.get_pan());
-	trace("VorbisManager.tickEnabled", VorbisAS.manager.get_tickEnabled());
+	trace("VorbisManager.parent",			VorbisAS.manager.parent);
+	trace("VorbisManager.groups",			VorbisAS.manager.groups);
+	trace("VorbisManager.loadCompleted",	VorbisAS.manager.loadCompleted);
+	trace("VorbisManager.loadFailed",		VorbisAS.manager.loadFailed);
+	trace("VorbisManager.volume",			VorbisAS.manager.get_volume());
+	trace("VorbisManager.masterVolume",		VorbisAS.manager.get_masterVolume());
+	trace("VorbisManager.mute",				VorbisAS.manager.get_mute());
+	trace("VorbisManager.pan",				VorbisAS.manager.get_pan());
+	trace("VorbisManager.tickEnabled", 		VorbisAS.manager.get_tickEnabled());
 
 
 ### why...?
