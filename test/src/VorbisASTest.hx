@@ -121,8 +121,6 @@ class VorbisASTest extends Sprite
 			case Keyboard.NUMBER_8:	testIsPlayed();
 			case Keyboard.NUMBER_9:	testLoopRemainng();
 			
-			case Keyboard.T:	performanceFade();
-			
 			case Keyboard.Z:	mvolume += 0.1;
 				if (mvolume < 0) mvolume = 0;
 				else if ( mvolume > 1 ) mvolume = 1;

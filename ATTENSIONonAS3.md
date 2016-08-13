@@ -1,5 +1,7 @@
 # !!Attension on AS3!!
 
+“ú–{Œê”Å‚Í‚±‚¿‚ç [ATTENSIONonAS3_jp.md](https://github.com/TuduraoJin/VorbisAS/blob/master/ATTENSIONonAS3_jp.md)
+
 ## initialize
 if use SWC on AS3. you need initialize haxe system first.
 
