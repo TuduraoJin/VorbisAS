@@ -6809,53 +6809,53 @@
 	 * you need call first on AS3. but need call after initSwc().</haxe_doc>
 		</initialize>
 		<groups public="1" get="accessor" set="null" static="1"><c path="Array"><c path="jp.gr.java_conf.ennea.sound.VorbisManager"/></c></groups>
-		<get_groups set="method" line="40" static="1"><f a=""><c path="Array"><c path="jp.gr.java_conf.ennea.sound.VorbisManager"/></c></f></get_groups>
+		<get_groups set="method" line="44" static="1"><f a=""><c path="Array"><c path="jp.gr.java_conf.ennea.sound.VorbisManager"/></c></f></get_groups>
 		<loadCompleted public="1" get="accessor" set="null" static="1"><c path="org.osflash.signals.Signal"/></loadCompleted>
-		<get_loadCompleted set="method" line="44" static="1"><f a=""><c path="org.osflash.signals.Signal"/></f></get_loadCompleted>
+		<get_loadCompleted set="method" line="52" static="1"><f a=""><c path="org.osflash.signals.Signal"/></f></get_loadCompleted>
 		<loadFailed public="1" get="accessor" set="null" static="1"><c path="org.osflash.signals.Signal"/></loadFailed>
-		<get_loadFailed set="method" line="48" static="1"><f a=""><c path="org.osflash.signals.Signal"/></f></get_loadFailed>
+		<get_loadFailed set="method" line="60" static="1"><f a=""><c path="org.osflash.signals.Signal"/></f></get_loadFailed>
 		<parent public="1" get="accessor" set="accessor" static="1"><c path="jp.gr.java_conf.ennea.sound.VorbisManager"/></parent>
-		<get_parent set="method" line="52" static="1"><f a=""><c path="jp.gr.java_conf.ennea.sound.VorbisManager"/></f></get_parent>
-		<set_parent set="method" line="53" static="1"><f a="value">
+		<get_parent set="method" line="69" static="1"><f a=""><c path="jp.gr.java_conf.ennea.sound.VorbisManager"/></f></get_parent>
+		<set_parent set="method" line="70" static="1"><f a="value">
 	<c path="jp.gr.java_conf.ennea.sound.VorbisManager"/>
 	<c path="jp.gr.java_conf.ennea.sound.VorbisManager"/>
 </f></set_parent>
 		<mute public="1" get="accessor" set="accessor" static="1"><x path="Bool"/></mute>
-		<get_mute set="method" line="56" static="1"><f a=""><x path="Bool"/></f></get_mute>
-		<set_mute set="method" line="57" static="1"><f a="value">
+		<get_mute set="method" line="79" static="1"><f a=""><x path="Bool"/></f></get_mute>
+		<set_mute set="method" line="80" static="1"><f a="value">
 	<x path="Bool"/>
 	<x path="Bool"/>
 </f></set_mute>
 		<volume public="1" get="accessor" set="accessor" static="1"><x path="Float"/></volume>
-		<get_volume set="method" line="60" static="1"><f a=""><x path="Float"/></f></get_volume>
-		<set_volume set="method" line="61" static="1"><f a="value">
+		<get_volume set="method" line="89" static="1"><f a=""><x path="Float"/></f></get_volume>
+		<set_volume set="method" line="90" static="1"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_volume>
 		<masterVolume public="1" get="accessor" set="accessor" static="1"><x path="Float"/></masterVolume>
-		<get_masterVolume set="method" line="64" static="1"><f a=""><x path="Float"/></f></get_masterVolume>
-		<set_masterVolume set="method" line="65" static="1"><f a="value">
+		<get_masterVolume set="method" line="99" static="1"><f a=""><x path="Float"/></f></get_masterVolume>
+		<set_masterVolume set="method" line="100" static="1"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_masterVolume>
 		<pan public="1" get="accessor" set="accessor" static="1"><x path="Float"/></pan>
-		<get_pan set="method" line="68" static="1"><f a=""><x path="Float"/></f></get_pan>
-		<set_pan set="method" line="69" static="1"><f a="value">
+		<get_pan set="method" line="109" static="1"><f a=""><x path="Float"/></f></get_pan>
+		<set_pan set="method" line="110" static="1"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_pan>
 		<soundTransform public="1" get="null" set="accessor" static="1"><c path="flash.media.SoundTransform"/></soundTransform>
-		<set_soundTransform set="method" line="72" static="1"><f a="value">
+		<set_soundTransform set="method" line="118" static="1"><f a="value">
 	<c path="flash.media.SoundTransform"/>
 	<c path="flash.media.SoundTransform"/>
 </f></set_soundTransform>
 		<tickEnabled public="1" get="accessor" set="accessor" static="1"><x path="Bool"/></tickEnabled>
-		<get_tickEnabled set="method" line="75" static="1"><f a=""><x path="Bool"/></f></get_tickEnabled>
-		<set_tickEnabled set="method" line="76" static="1"><f a="value">
+		<get_tickEnabled set="method" line="127" static="1"><f a=""><x path="Bool"/></f></get_tickEnabled>
+		<set_tickEnabled set="method" line="128" static="1"><f a="value">
 	<x path="Bool"/>
 	<x path="Bool"/>
 </f></set_tickEnabled>
-		<play public="1" set="method" line="78" static="1">
+		<play public="1" set="method" line="131" static="1">
 			<f a="type:?volume:?startTime:?loops:?allowMultiple:?allowInterrupt" v=":1:0:0:false:true">
 				<c path="String"/>
 				<x path="Float"/>
@@ -6867,7 +6867,7 @@
 			</f>
 			<meta><m n=":value"><e>{allowInterrupt:true,allowMultiple:false,loops:0,startTime:0,volume:1}</e></m></meta>
 		</play>
-		<playLoop public="1" set="method" line="82" static="1">
+		<playLoop public="1" set="method" line="135" static="1">
 			<f a="type:?volume:?startTime" v=":1:0">
 				<c path="String"/>
 				<x path="Float"/>
@@ -6876,7 +6876,7 @@
 			</f>
 			<meta><m n=":value"><e>{startTime:0,volume:1}</e></m></meta>
 		</playLoop>
-		<playFx public="1" set="method" line="86" static="1">
+		<playFx public="1" set="method" line="139" static="1">
 			<f a="type:?volume:?startTime:?loops" v=":1:0:0">
 				<c path="String"/>
 				<x path="Float"/>
@@ -6886,18 +6886,18 @@
 			</f>
 			<meta><m n=":value"><e>{loops:0,startTime:0,volume:1}</e></m></meta>
 		</playFx>
-		<stopAll public="1" set="method" line="90" static="1"><f a=""><x path="Void"/></f></stopAll>
-		<resume public="1" set="method" line="91" static="1"><f a="type">
+		<stopAll public="1" set="method" line="143" static="1"><f a=""><x path="Void"/></f></stopAll>
+		<resume public="1" set="method" line="144" static="1"><f a="type">
 	<c path="String"/>
 	<c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/>
 </f></resume>
-		<resumeAll public="1" set="method" line="92" static="1"><f a=""><x path="Void"/></f></resumeAll>
-		<pause public="1" set="method" line="93" static="1"><f a="type">
+		<resumeAll public="1" set="method" line="145" static="1"><f a=""><x path="Void"/></f></resumeAll>
+		<pause public="1" set="method" line="146" static="1"><f a="type">
 	<c path="String"/>
 	<c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/>
 </f></pause>
-		<pauseAll public="1" set="method" line="94" static="1"><f a=""><x path="Void"/></f></pauseAll>
-		<fadeTo public="1" set="method" line="96" static="1">
+		<pauseAll public="1" set="method" line="147" static="1"><f a=""><x path="Void"/></f></pauseAll>
+		<fadeTo public="1" set="method" line="149" static="1">
 			<f a="type:?endVolume:?duration:?stopAtZero" v=":1:1000:true">
 				<c path="String"/>
 				<x path="Float"/>
@@ -6907,7 +6907,7 @@
 			</f>
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1}</e></m></meta>
 		</fadeTo>
-		<fadeAllTo public="1" set="method" line="100" static="1">
+		<fadeAllTo public="1" set="method" line="153" static="1">
 			<f a="?endVolume:?duration:?stopAtZero" v="1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -6916,7 +6916,7 @@
 			</f>
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1}</e></m></meta>
 		</fadeAllTo>
-		<fadeMasterTo public="1" set="method" line="104" static="1">
+		<fadeMasterTo public="1" set="method" line="157" static="1">
 			<f a="?endVolume:?duration:?stopAtZero" v="1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -6925,7 +6925,7 @@
 			</f>
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1}</e></m></meta>
 		</fadeMasterTo>
-		<fadeFrom public="1" set="method" line="108" static="1">
+		<fadeFrom public="1" set="method" line="161" static="1">
 			<f a="type:?startVolume:?endVolume:?duration:?stopAtZero" v=":0:1:1000:true">
 				<c path="String"/>
 				<x path="Float"/>
@@ -6936,7 +6936,7 @@
 			</f>
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1,startVolume:0}</e></m></meta>
 		</fadeFrom>
-		<fadeAllFrom public="1" set="method" line="112" static="1">
+		<fadeAllFrom public="1" set="method" line="165" static="1">
 			<f a="?startVolume:?endVolume:?duration:?stopAtZero" v="0:1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -6946,7 +6946,7 @@
 			</f>
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1,startVolume:0}</e></m></meta>
 		</fadeAllFrom>
-		<fadeMasterFrom public="1" set="method" line="116" static="1">
+		<fadeMasterFrom public="1" set="method" line="169" static="1">
 			<f a="?startVolume:?endVolume:?duration:?stopAtZero" v="0:1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -6956,7 +6956,7 @@
 			</f>
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1,startVolume:0}</e></m></meta>
 		</fadeMasterFrom>
-		<getSound public="1" set="method" line="120" static="1">
+		<getSound public="1" set="method" line="173" static="1">
 			<f a="type:?forceNew" v=":false">
 				<c path="String"/>
 				<x path="Bool"/>
@@ -6964,7 +6964,7 @@
 			</f>
 			<meta><m n=":value"><e>{forceNew:false}</e></m></meta>
 		</getSound>
-		<loadSound public="1" set="method" line="121" static="1">
+		<loadSound public="1" set="method" line="174" static="1">
 			<f a="url:type:?buffer" v="::100">
 				<c path="String"/>
 				<c path="String"/>
@@ -6973,26 +6973,26 @@
 			</f>
 			<meta><m n=":value"><e>{buffer:100}</e></m></meta>
 		</loadSound>
-		<addSound public="1" set="method" line="122" static="1"><f a="type:sound">
+		<addSound public="1" set="method" line="175" static="1"><f a="type:sound">
 	<c path="String"/>
 	<c path="stb.format.vorbis.flash.VorbisSound"/>
 	<x path="Void"/>
 </f></addSound>
-		<addSoundBytes public="1" set="method" line="123" static="1"><f a="type:bytes">
+		<addSoundBytes public="1" set="method" line="176" static="1"><f a="type:bytes">
 	<c path="String"/>
 	<c path="haxe.io.Bytes"/>
 	<x path="Void"/>
 </f></addSoundBytes>
-		<removeSound public="1" set="method" line="124" static="1"><f a="type">
+		<removeSound public="1" set="method" line="177" static="1"><f a="type">
 	<c path="String"/>
 	<x path="Void"/>
 </f></removeSound>
-		<removeAll public="1" set="method" line="125" static="1"><f a=""><x path="Void"/></f></removeAll>
-		<group public="1" set="method" line="127" static="1"><f a="name">
+		<removeAll public="1" set="method" line="178" static="1"><f a=""><x path="Void"/></f></removeAll>
+		<group public="1" set="method" line="180" static="1"><f a="name">
 	<c path="String"/>
 	<c path="jp.gr.java_conf.ennea.sound.VorbisManager"/>
 </f></group>
-		<addTween public="1" set="method" line="129" static="1"><f a="type:startVolume:endVolume:duration:stopAtZero">
+		<addTween public="1" set="method" line="182" static="1"><f a="type:startVolume:endVolume:duration:stopAtZero">
 	<c path="String"/>
 	<x path="Float"/>
 	<x path="Float"/>
@@ -7059,8 +7059,8 @@
 	 * -1 is infinitely loop.</haxe_doc>
 		</loops>
 		<_loops><x path="Int"/></_loops>
-		<get_loops set="method" line="77"><f a=""><x path="Int"/></f></get_loops>
-		<set_loops set="method" line="78"><f a="value">
+		<get_loops set="method" line="86"><f a=""><x path="Int"/></f></get_loops>
+		<set_loops set="method" line="90"><f a="value">
 	<x path="Int"/>
 	<x path="Int"/>
 </f></set_loops>
@@ -7070,7 +7070,7 @@
 	 * It will equal 0 when the sound is completed, or not looping at all. 
 	 * It will equal -1 if the sound is looping infinitely.</haxe_doc>
 		</loopsRemaining>
-		<get_loopsRemaining set="method" line="92"><f a=""><x path="Int"/></f></get_loopsRemaining>
+		<get_loopsRemaining set="method" line="111"><f a=""><x path="Int"/></f></get_loopsRemaining>
 		<fade public="1">
 			<c path="jp.gr.java_conf.ennea.sound.VorbisTween"/>
 			<haxe_doc>* fade control property.
@@ -7081,8 +7081,8 @@
 			<haxe_doc>* Mute current sound.</haxe_doc>
 		</mute>
 		<_mute><x path="Bool"/></_mute>
-		<get_mute set="method" line="117"><f a=""><x path="Bool"/></f></get_mute>
-		<set_mute set="method" line="118"><f a="value">
+		<get_mute set="method" line="143"><f a=""><x path="Bool"/></f></get_mute>
+		<set_mute set="method" line="147"><f a="value">
 	<x path="Bool"/>
 	<x path="Bool"/>
 </f></set_mute>
@@ -7091,19 +7091,19 @@
 			<haxe_doc>* Indicates whether this sound is currently playing.</haxe_doc>
 		</isPlaying>
 		<_isPlaying><x path="Bool"/></_isPlaying>
-		<get_isPlaying set="method" line="133"><f a=""><x path="Bool"/></f></get_isPlaying>
+		<get_isPlaying set="method" line="170"><f a=""><x path="Bool"/></f></get_isPlaying>
 		<isPaused public="1" get="accessor" set="null">
 			<x path="Bool"/>
 			<haxe_doc>* Indicates whether this sound is currently paused.</haxe_doc>
 		</isPaused>
-		<get_isPaused set="method" line="139"><f a=""><x path="Bool"/></f></get_isPaused>
+		<get_isPaused set="method" line="184"><f a=""><x path="Bool"/></f></get_isPaused>
 		<position public="1" get="accessor" set="accessor">
 			<x path="Float"/>
 			<haxe_doc>* position of sound in milliseconds
 	 * if set new value, restart channel.</haxe_doc>
 		</position>
-		<get_position set="method" line="148"><f a=""><x path="Float"/></f></get_position>
-		<set_position set="method" line="149"><f a="value">
+		<get_position set="method" line="202"><f a=""><x path="Float"/></f></get_position>
+		<set_position set="method" line="206"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_position>
@@ -7112,14 +7112,14 @@
 			<haxe_doc>* Value between 0 and 1. You can call this while muted to change volume, and it will not break the mute.</haxe_doc>
 		</volume>
 		<_volume><x path="Float"/></_volume>
-		<get_volume set="method" line="165"><f a=""><x path="Float"/></f></get_volume>
-		<set_volume set="method" line="166"><f a="value">
+		<get_volume set="method" line="229"><f a=""><x path="Float"/></f></get_volume>
+		<set_volume set="method" line="233"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_volume>
 		<masterVolume public="1" get="accessor" set="accessor"><x path="Float"/></masterVolume>
-		<get_masterVolume set="method" line="179"><f a=""><x path="Float"/></f></get_masterVolume>
-		<set_masterVolume set="method" line="185">
+		<get_masterVolume set="method" line="254"><f a=""><x path="Float"/></f></get_masterVolume>
+		<set_masterVolume set="method" line="263">
 			<f a="value">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7131,25 +7131,25 @@
 			<x path="Float"/>
 			<haxe_doc>* Combined masterVolume and volume levels</haxe_doc>
 		</mixedVolume>
-		<get_mixedVolume set="method" line="193"><f a=""><x path="Float"/></f></get_mixedVolume>
+		<get_mixedVolume set="method" line="279"><f a=""><x path="Float"/></f></get_mixedVolume>
 		<pan public="1" get="accessor" set="accessor">
 			<x path="Float"/>
 			<haxe_doc>* The left-to-right panning of the sound, ranging from -1 (full pan left) to 1 (full pan right).</haxe_doc>
 		</pan>
 		<_pan><x path="Float"/></_pan>
-		<get_pan set="method" line="204"><f a=""><x path="Float"/></f></get_pan>
-		<set_pan set="method" line="205"><f a="value">
+		<get_pan set="method" line="298"><f a=""><x path="Float"/></f></get_pan>
+		<set_pan set="method" line="302"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_pan>
 		<soundTransform public="1" get="accessor" set="accessor"><c path="flash.media.SoundTransform"/></soundTransform>
 		<_soundTransform><c path="flash.media.SoundTransform"/></_soundTransform>
-		<get_soundTransform set="method" line="222"><f a=""><c path="flash.media.SoundTransform"/></f></get_soundTransform>
-		<set_soundTransform set="method" line="227"><f a="value">
+		<get_soundTransform set="method" line="327"><f a=""><c path="flash.media.SoundTransform"/></f></get_soundTransform>
+		<set_soundTransform set="method" line="335"><f a="value">
 	<c path="flash.media.SoundTransform"/>
 	<c path="flash.media.SoundTransform"/>
 </f></set_soundTransform>
-		<play public="1" set="method" line="263">
+		<play public="1" set="method" line="371">
 			<f a="?volume:?startTime:?loops:?allowMultiple" v="1:0:0:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7164,11 +7164,11 @@
 	 * @param loops Number of times to loop Sound. Pass -1 to loop forever.
 	 * @param allowMultiple Allow multiple concurrent instances of this Sound</haxe_doc>
 		</play>
-		<pause public="1" set="method" line="297">
+		<pause public="1" set="method" line="405">
 			<f a=""><c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/></f>
 			<haxe_doc>* Pause currently playing sound. Use resume() to continue playback. Pause / resume is supported for single sounds only.</haxe_doc>
 		</pause>
-		<resume public="1" set="method" line="309">
+		<resume public="1" set="method" line="417">
 			<f a="?forceStart" v="false">
 				<x path="Bool"/>
 				<c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/>
@@ -7176,11 +7176,11 @@
 			<meta><m n=":value"><e>{forceStart:false}</e></m></meta>
 			<haxe_doc>* Resume from previously paused time. Optionally start over if it's not paused.</haxe_doc>
 		</resume>
-		<stop public="1" set="method" line="319">
+		<stop public="1" set="method" line="427">
 			<f a=""><c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/></f>
 			<haxe_doc>* Stop the currently playing sound and set it's position to 0</haxe_doc>
 		</stop>
-		<fadeTo public="1" set="method" line="332">
+		<fadeTo public="1" set="method" line="440">
 			<f a="endVolume:?duration:?stopAtZero" v=":1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7190,7 +7190,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000}</e></m></meta>
 			<haxe_doc>* Fade using the current volume as the Start Volume</haxe_doc>
 		</fadeTo>
-		<fadeFrom public="1" set="method" line="340">
+		<fadeFrom public="1" set="method" line="448">
 			<f a="startVolume:endVolume:?duration:?stopAtZero" v="::1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7201,37 +7201,37 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000}</e></m></meta>
 			<haxe_doc>* Fade and specify both the Start Volume and End Volume.</haxe_doc>
 		</fadeFrom>
-		<clone public="1" set="method" line="348">
+		<clone public="1" set="method" line="456">
 			<f a=""><c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/></f>
 			<haxe_doc>* Create a duplicate of this SoundInstance</haxe_doc>
 		</clone>
-		<destroy public="1" set="method" line="356">
+		<destroy public="1" set="method" line="464">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Unload sound from memory.</haxe_doc>
 		</destroy>
-		<onSoundComplete set="method" line="372">
+		<onSoundComplete set="method" line="480">
 			<f a="event">
 				<c path="flash.events.Event"/>
 				<x path="Void"/>
 			</f>
 			<haxe_doc>* Dispatched when Sound has finished playback</haxe_doc>
 		</onSoundComplete>
-		<stopChannel set="method" line="404">
+		<stopChannel set="method" line="512">
 			<f a="channel">
 				<c path="stb.format.vorbis.flash.VorbisSoundChannel"/>
 				<x path="Void"/>
 			</f>
 			<haxe_doc>* Stop the currently playing channel.</haxe_doc>
 		</stopChannel>
-		<stopOldChannels set="method" line="415">
+		<stopOldChannels set="method" line="523">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Kill all orphaned channels</haxe_doc>
 		</stopOldChannels>
-		<updateOldChannels set="method" line="426">
+		<updateOldChannels set="method" line="534">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Keep orphaned channels in sync with current volume</haxe_doc>
 		</updateOldChannels>
-		<new public="1" set="method" line="243">
+		<new public="1" set="method" line="351">
 			<f a="?sound:?type">
 				<c path="stb.format.vorbis.flash.VorbisSound"/>
 				<c path="String"/>
@@ -7286,8 +7286,8 @@
 			<haxe_doc>* Mute all instances.</haxe_doc>
 		</mute>
 		<_mute><x path="Bool"/></_mute>
-		<get_mute set="method" line="59"><f a=""><x path="Bool"/></f></get_mute>
-		<set_mute set="method" line="60"><f a="value">
+		<get_mute set="method" line="69"><f a=""><x path="Bool"/></f></get_mute>
+		<set_mute set="method" line="73"><f a="value">
 	<x path="Bool"/>
 	<x path="Bool"/>
 </f></set_mute>
@@ -7296,8 +7296,8 @@
 			<haxe_doc>* Set volume on all instances</haxe_doc>
 		</volume>
 		<_volume><x path="Float"/></_volume>
-		<get_volume set="method" line="73"><f a=""><x path="Float"/></f></get_volume>
-		<set_volume set="method" line="74"><f a="value">
+		<get_volume set="method" line="95"><f a=""><x path="Float"/></f></get_volume>
+		<set_volume set="method" line="99"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_volume>
@@ -7306,8 +7306,8 @@
 			<haxe_doc>* Set master volume, which will me multiplied on top of all existing volume levels.</haxe_doc>
 		</masterVolume>
 		<_masterVolume><x path="Float"/></_masterVolume>
-		<get_masterVolume set="method" line="89"><f a=""><x path="Float"/></f></get_masterVolume>
-		<set_masterVolume set="method" line="90"><f a="value">
+		<get_masterVolume set="method" line="123"><f a=""><x path="Float"/></f></get_masterVolume>
+		<set_masterVolume set="method" line="127"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_masterVolume>
@@ -7316,13 +7316,13 @@
 			<haxe_doc>* Set pan on all instances</haxe_doc>
 		</pan>
 		<_pan><x path="Float"/></_pan>
-		<get_pan set="method" line="107"><f a=""><x path="Float"/></f></get_pan>
-		<set_pan set="method" line="108"><f a="value">
+		<get_pan set="method" line="153"><f a=""><x path="Float"/></f></get_pan>
+		<set_pan set="method" line="157"><f a="value">
 	<x path="Float"/>
 	<x path="Float"/>
 </f></set_pan>
 		<soundTransform public="1" get="null" set="accessor"><c path="flash.media.SoundTransform"/></soundTransform>
-		<set_soundTransform set="method" line="121">
+		<set_soundTransform set="method" line="178">
 			<f a="value">
 				<c path="flash.media.SoundTransform"/>
 				<c path="flash.media.SoundTransform"/>
@@ -7330,8 +7330,8 @@
 			<haxe_doc>* Set soundTransform on all instances. 
 	 * always return null.</haxe_doc>
 		</set_soundTransform>
-		<init set="method" line="142"><f a=""><x path="Void"/></f></init>
-		<play public="1" set="method" line="161">
+		<init set="method" line="199"><f a=""><x path="Void"/></f></init>
+		<play public="1" set="method" line="218">
 			<f a="type:?volume:?startTime:?loops:?allowMultiple:?allowInterrupt" v=":1:0:0:false:true">
 				<c path="String"/>
 				<x path="Float"/>
@@ -7351,7 +7351,7 @@
 	 * @param allowMultiple Allow multiple, overlapping instances of this Sound (useful for SoundFX)
 	 * @param allowInterrupt If this sound is currently playing, interrupt it and start at the specified StartTime. Otherwise, just update the Volume.</haxe_doc>
 		</play>
-		<playLoop public="1" set="method" line="183">
+		<playLoop public="1" set="method" line="240">
 			<f a="type:?volume:?startTime" v=":1:0">
 				<c path="String"/>
 				<x path="Float"/>
@@ -7361,7 +7361,7 @@
 			<meta><m n=":value"><e>{startTime:0,volume:1}</e></m></meta>
 			<haxe_doc>* Convenience function to play a sound that should loop forever.</haxe_doc>
 		</playLoop>
-		<playFx public="1" set="method" line="190">
+		<playFx public="1" set="method" line="247">
 			<f a="type:?volume:?startTime:?loops" v=":1:0:0">
 				<c path="String"/>
 				<x path="Float"/>
@@ -7372,33 +7372,33 @@
 			<meta><m n=":value"><e>{loops:0,startTime:0,volume:1}</e></m></meta>
 			<haxe_doc>* Convenience function to play a sound that can have overlapping instances (ie click or soundFx).</haxe_doc>
 		</playFx>
-		<stopAll public="1" set="method" line="197">
+		<stopAll public="1" set="method" line="254">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Stop all sounds immediately.</haxe_doc>
 		</stopAll>
-		<resume public="1" set="method" line="206">
+		<resume public="1" set="method" line="263">
 			<f a="type">
 				<c path="String"/>
 				<c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/>
 			</f>
 			<haxe_doc>* Resume specific sound</haxe_doc>
 		</resume>
-		<resumeAll public="1" set="method" line="213">
+		<resumeAll public="1" set="method" line="270">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Resume all paused instances.</haxe_doc>
 		</resumeAll>
-		<pause public="1" set="method" line="222">
+		<pause public="1" set="method" line="279">
 			<f a="type">
 				<c path="String"/>
 				<c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/>
 			</f>
 			<haxe_doc>* Pause a specific sound</haxe_doc>
 		</pause>
-		<pauseAll public="1" set="method" line="229">
+		<pauseAll public="1" set="method" line="286">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Pause all sounds</haxe_doc>
 		</pauseAll>
-		<fadeTo public="1" set="method" line="238">
+		<fadeTo public="1" set="method" line="295">
 			<f a="type:?endVolume:?duration:?stopAtZero" v=":1:1000:true">
 				<c path="String"/>
 				<x path="Float"/>
@@ -7409,7 +7409,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1}</e></m></meta>
 			<haxe_doc>* Fade specific sound starting at the current volume</haxe_doc>
 		</fadeTo>
-		<fadeAllTo public="1" set="method" line="246">
+		<fadeAllTo public="1" set="method" line="303">
 			<f a="?endVolume:?duration:?stopAtZero" v="1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7419,7 +7419,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1}</e></m></meta>
 			<haxe_doc>* Fade all sounds starting from their current Volume</haxe_doc>
 		</fadeAllTo>
-		<fadeMasterTo public="1" set="method" line="256">
+		<fadeMasterTo public="1" set="method" line="313">
 			<f a="?endVolume:?duration:?stopAtZero" v="1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7429,7 +7429,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1}</e></m></meta>
 			<haxe_doc>* Fade master volume starting at the current value</haxe_doc>
 		</fadeMasterTo>
-		<fadeFrom public="1" set="method" line="263">
+		<fadeFrom public="1" set="method" line="320">
 			<f a="type:?startVolume:?endVolume:?duration:?stopAtZero" v=":0:1:1000:true">
 				<c path="String"/>
 				<x path="Float"/>
@@ -7441,7 +7441,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1,startVolume:0}</e></m></meta>
 			<haxe_doc>* Fade specific sound specifying both the StartVolume and EndVolume.</haxe_doc>
 		</fadeFrom>
-		<fadeAllFrom public="1" set="method" line="271">
+		<fadeAllFrom public="1" set="method" line="328">
 			<f a="?startVolume:?endVolume:?duration:?stopAtZero" v="0:1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7452,7 +7452,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1,startVolume:0}</e></m></meta>
 			<haxe_doc>* Fade all sounds specifying both the StartVolume and EndVolume.</haxe_doc>
 		</fadeAllFrom>
-		<fadeMasterFrom public="1" set="method" line="281">
+		<fadeMasterFrom public="1" set="method" line="338">
 			<f a="?startVolume:?endVolume:?duration:?stopAtZero" v="0:1:1000:true">
 				<x path="Float"/>
 				<x path="Float"/>
@@ -7463,7 +7463,7 @@
 			<meta><m n=":value"><e>{stopAtZero:true,duration:1000,endVolume:1,startVolume:0}</e></m></meta>
 			<haxe_doc>* Fade master volume specifying both the StartVolume and EndVolume.</haxe_doc>
 		</fadeMasterFrom>
-		<getSound public="1" set="method" line="291">
+		<getSound public="1" set="method" line="348">
 			<f a="type:?forceNew" v=":false">
 				<c path="String"/>
 				<x path="Bool"/>
@@ -7475,7 +7475,7 @@
 	 * @param	forceNew create new Instance.
 	 * @return	VorbisInstance, return null when not found.</haxe_doc>
 		</getSound>
-		<loadSound public="1" set="method" line="334">
+		<loadSound public="1" set="method" line="391">
 			<f a="url:type">
 				<c path="String"/>
 				<c path="String"/>
@@ -7485,7 +7485,7 @@
 	 * @param url External file path to the sound instance.
 	 * @param type	 specific sound's name.</haxe_doc>
 		</loadSound>
-		<addSound public="1" set="method" line="354">
+		<addSound public="1" set="method" line="411">
 			<f a="type:sound">
 				<c path="String"/>
 				<c path="stb.format.vorbis.flash.VorbisSound"/>
@@ -7496,7 +7496,7 @@
 	 * @param	sound   VorbisSound instance.
 	 *</haxe_doc>
 		</addSound>
-		<addSoundBytes public="1" set="method" line="374">
+		<addSoundBytes public="1" set="method" line="431">
 			<f a="type:bytes">
 				<c path="String"/>
 				<c path="haxe.io.Bytes"/>
@@ -7507,7 +7507,7 @@
 	 * @param	type	specific sound's name.
 	 * @param	bytes OggVorbis format binary.</haxe_doc>
 		</addSoundBytes>
-		<removeSound public="1" set="method" line="396">
+		<removeSound public="1" set="method" line="453">
 			<f a="type">
 				<c path="String"/>
 				<x path="Void"/>
@@ -7515,11 +7515,11 @@
 			<haxe_doc>* Remove a sound from memory.
 	 * @param	type	specified sound name.</haxe_doc>
 		</removeSound>
-		<removeAll public="1" set="method" line="416">
+		<removeAll public="1" set="method" line="473">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* Unload all Sound instances.</haxe_doc>
 		</removeAll>
-		<group public="1" set="method" line="435">
+		<group public="1" set="method" line="492">
 			<f a="name">
 				<c path="String"/>
 				<c path="jp.gr.java_conf.ennea.sound.VorbisManager"/>
@@ -7528,14 +7528,14 @@
 	 * @param	name	group name.
 	 * @return	VorbisManager.</haxe_doc>
 		</group>
-		<addMasterTween set="method" line="447"><f a="startVolume:endVolume:duration:stopAtZero">
+		<addMasterTween set="method" line="504"><f a="startVolume:endVolume:duration:stopAtZero">
 	<x path="Float"/>
 	<x path="Float"/>
 	<x path="Float"/>
 	<x path="Bool"/>
 	<x path="Void"/>
 </f></addMasterTween>
-		<addTween public="1" set="method" line="460"><f a="type:startVolume:endVolume:duration:stopAtZero">
+		<addTween public="1" set="method" line="517"><f a="type:startVolume:endVolume:duration:stopAtZero">
 	<c path="String"/>
 	<x path="Float"/>
 	<x path="Float"/>
@@ -7543,34 +7543,34 @@
 	<x path="Bool"/>
 	<c path="jp.gr.java_conf.ennea.sound.VorbisTween"/>
 </f></addTween>
-		<addInstance set="method" line="476"><f a="si">
+		<addInstance set="method" line="533"><f a="si">
 	<c path="jp.gr.java_conf.ennea.sound.VorbisInstance"/>
 	<x path="Void"/>
 </f></addInstance>
 		<tickEnabled public="1" get="accessor" set="accessor"><x path="Bool"/></tickEnabled>
 		<_tickEnabled><x path="Bool"/></_tickEnabled>
-		<get_tickEnabled set="method" line="486"><f a=""><x path="Bool"/></f></get_tickEnabled>
-		<set_tickEnabled set="method" line="487"><f a="value">
+		<get_tickEnabled set="method" line="552"><f a=""><x path="Bool"/></f></get_tickEnabled>
+		<set_tickEnabled set="method" line="557"><f a="value">
 	<x path="Bool"/>
 	<x path="Bool"/>
 </f></set_tickEnabled>
-		<onTick set="method" line="499"><f a="event">
+		<onTick set="method" line="569"><f a="event">
 	<c path="flash.events.Event"/>
 	<x path="Void"/>
 </f></onTick>
-		<onSoundLoadComplete set="method" line="512"><f a="event">
+		<onSoundLoadComplete set="method" line="582"><f a="event">
 	<c path="flash.events.Event"/>
 	<x path="Void"/>
 </f></onSoundLoadComplete>
-		<onSoundLoadProgress set="method" line="517"><f a="event">
+		<onSoundLoadProgress set="method" line="587"><f a="event">
 	<c path="flash.events.ProgressEvent"/>
 	<x path="Void"/>
 </f></onSoundLoadProgress>
-		<onSoundLoadError set="method" line="519"><f a="event">
+		<onSoundLoadError set="method" line="589"><f a="event">
 	<c path="flash.events.IOErrorEvent"/>
 	<x path="Void"/>
 </f></onSoundLoadError>
-		<new public="1" set="method" line="131"><f a=""><x path="Void"/></f></new>
+		<new public="1" set="method" line="188"><f a=""><x path="Void"/></f></new>
 		<haxe_doc>* Controls playback and loading of a group of sounds.
  * VorbisAS references a global instance of VorbisManager,
  * but you are free to instanciate your own and use them in a modular fashion.
@@ -8765,7 +8765,7 @@
 	 * because It initialize at once.
 	 * @param	bytes OggVorbis binary.</haxe_doc>
 		</loadFromBytes>
-		<load public="1" set="method" line="102">
+		<load public="1" set="method" line="106">
 			<f a="url">
 				<c path="String"/>
 				<x path="Void"/>
@@ -8774,32 +8774,36 @@
 	 * dispatch event Event.COMPLETE when loading completed 
 	 * 
 	 * @param	url OggVorbis file URL.
+	 * 
 	 * @eventType	Event.COMPLETE	loading completed.  
+	 * 
 	 * @eventType	ProgressEvent.PROGRESS	loading processing.  
+	 * 
 	 * @eventType	IOErrorEvent.IO_ERROR	loading failed.  
+	 * 
 	 *    @throws	ArgumentError	url is null.</haxe_doc>
 		</load>
-		<close public="1" set="method" line="119">
+		<close public="1" set="method" line="123">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* close loading stream and dispose already loaded data.
 	 * if you want to cancel when loading. use this function.</haxe_doc>
 		</close>
-		<onComplete set="method" line="131">
+		<onComplete set="method" line="135">
 			<f a="e">
 				<c path="flash.events.Event"/>
 				<x path="Void"/>
 			</f>
 			<haxe_doc>* Loading complete handler.</haxe_doc>
 		</onComplete>
-		<onProgress set="method" line="143"><f a="e">
+		<onProgress set="method" line="147"><f a="e">
 	<c path="flash.events.ProgressEvent"/>
 	<x path="Void"/>
 </f></onProgress>
-		<onIOError set="method" line="144"><f a="e">
+		<onIOError set="method" line="148"><f a="e">
 	<c path="flash.events.IOErrorEvent"/>
 	<x path="Void"/>
 </f></onIOError>
-		<addEventListener public="1" set="method" line="148">
+		<addEventListener public="1" set="method" line="152">
 			<f a="type:listener:?useCapture:?priority:?useWeakReference" v="::false:0:false">
 				<c path="String"/>
 				<f a="">
@@ -8813,15 +8817,15 @@
 			</f>
 			<meta><m n=":value"><e>{useWeakReference:false,priority:0,useCapture:false}</e></m></meta>
 		</addEventListener>
-		<dispatchEvent public="1" set="method" line="153"><f a="event">
+		<dispatchEvent public="1" set="method" line="157"><f a="event">
 	<c path="flash.events.Event"/>
 	<x path="Bool"/>
 </f></dispatchEvent>
-		<hasEventListener public="1" set="method" line="158"><f a="type">
+		<hasEventListener public="1" set="method" line="162"><f a="type">
 	<c path="String"/>
 	<x path="Bool"/>
 </f></hasEventListener>
-		<removeEventListener public="1" set="method" line="163">
+		<removeEventListener public="1" set="method" line="167">
 			<f a="type:listener:?useCapture" v="::false">
 				<c path="String"/>
 				<f a="">
@@ -8833,7 +8837,7 @@
 			</f>
 			<meta><m n=":value"><e>{useCapture:false}</e></m></meta>
 		</removeEventListener>
-		<willTrigger public="1" set="method" line="168"><f a="type">
+		<willTrigger public="1" set="method" line="172"><f a="type">
 	<c path="String"/>
 	<x path="Bool"/>
 </f></willTrigger>
@@ -8853,7 +8857,7 @@
 	</class>
 	<class path="stb.format.vorbis.flash.VorbisSoundChannel" params="" file="./src/stb/format/vorbis/flash/VorbisSoundChannel.hx">
 		<implements path="flash.events.IEventDispatcher"/>
-		<play public="1" set="method" line="104" static="1">
+		<play public="1" set="method" line="133" static="1">
 			<f a="sound:reader:startSample:loop:loopStartSample:loopEndSample:?soundTransform">
 				<c path="flash.media.Sound"/>
 				<c path="stb.format.vorbis.Reader"/>
@@ -8879,20 +8883,20 @@
 			<haxe_doc>* flash.media.SoundChannel instance.</haxe_doc>
 		</channel>
 		<leftPeak public="1" get="accessor" set="null"><x path="Float"/></leftPeak>
-		<get_leftPeak set="method" line="25"><f a=""><x path="Float"/></f></get_leftPeak>
+		<get_leftPeak set="method" line="33"><f a=""><x path="Float"/></f></get_leftPeak>
 		<position public="1" get="accessor" set="null">
 			<x path="Float"/>
 			<haxe_doc>* playing position (MilliSecond)</haxe_doc>
 		</position>
-		<get_position set="method" line="33"><f a=""><x path="Float"/></f></get_position>
+		<get_position set="method" line="48"><f a=""><x path="Float"/></f></get_position>
 		<rightPeak public="1" get="accessor" set="null"><x path="Float"/></rightPeak>
-		<get_rightPeak set="method" line="39"><f a=""><x path="Float"/></f></get_rightPeak>
+		<get_rightPeak set="method" line="57"><f a=""><x path="Float"/></f></get_rightPeak>
 		<soundTransform public="1" get="accessor" set="accessor">
 			<c path="flash.media.SoundTransform"/>
 			<haxe_doc>* SoundTransform. access to volume and pan.</haxe_doc>
 		</soundTransform>
-		<get_soundTransform set="method" line="47"><f a=""><c path="flash.media.SoundTransform"/></f></get_soundTransform>
-		<set_soundTransform set="method" line="50"><f a="value">
+		<get_soundTransform set="method" line="73"><f a=""><c path="flash.media.SoundTransform"/></f></get_soundTransform>
+		<set_soundTransform set="method" line="79"><f a="value">
 	<c path="flash.media.SoundTransform"/>
 	<c path="flash.media.SoundTransform"/>
 </f></set_soundTransform>
@@ -8910,11 +8914,11 @@
 		</_reader>
 		<_loopReader><c path="stb.format.vorbis.Reader"/></_loopReader>
 		<_loopEnd><x path="Int"/></_loopEnd>
-		<stop public="1" set="method" line="126">
+		<stop public="1" set="method" line="155">
 			<f a=""><x path="Void"/></f>
 			<haxe_doc>* stop sound.</haxe_doc>
 		</stop>
-		<onSampleData set="method" line="135">
+		<onSampleData set="method" line="164">
 			<f a="event">
 				<c path="flash.events.SampleDataEvent"/>
 				<x path="Void"/>
@@ -8924,7 +8928,7 @@
 	 * decoding data pass to sampling event.
 	 * @param	event</haxe_doc>
 		</onSampleData>
-		<addEventListener public="1" set="method" line="163">
+		<addEventListener public="1" set="method" line="192">
 			<f a="type:listener:?useCapture:?priority:?useWeakReference" v="::false:0:false">
 				<c path="String"/>
 				<f a="">
@@ -8938,7 +8942,7 @@
 			</f>
 			<meta><m n=":value"><e>{useWeakReference:false,priority:0,useCapture:false}</e></m></meta>
 		</addEventListener>
-		<removeEventListener public="1" set="method" line="168">
+		<removeEventListener public="1" set="method" line="197">
 			<f a="type:listener:?useCapture" v="::false">
 				<c path="String"/>
 				<f a="">
@@ -8950,19 +8954,19 @@
 			</f>
 			<meta><m n=":value"><e>{useCapture:false}</e></m></meta>
 		</removeEventListener>
-		<dispatchEvent public="1" set="method" line="173"><f a="event">
+		<dispatchEvent public="1" set="method" line="202"><f a="event">
 	<c path="flash.events.Event"/>
 	<x path="Bool"/>
 </f></dispatchEvent>
-		<hasEventListener public="1" set="method" line="178"><f a="type">
+		<hasEventListener public="1" set="method" line="207"><f a="type">
 	<c path="String"/>
 	<x path="Bool"/>
 </f></hasEventListener>
-		<willTrigger public="1" set="method" line="183"><f a="type">
+		<willTrigger public="1" set="method" line="212"><f a="type">
 	<c path="String"/>
 	<x path="Bool"/>
 </f></willTrigger>
-		<new set="method" line="79">
+		<new set="method" line="108">
 			<f a="reader:startSample:loop:loopStartSample:loopEndSample">
 				<c path="stb.format.vorbis.Reader"/>
 				<x path="Int"/>

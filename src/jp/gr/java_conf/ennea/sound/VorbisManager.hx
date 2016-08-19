@@ -51,12 +51,25 @@ class VorbisManager
 	 */
 	public var parent:VorbisManager;
 	
+	
 	/**
 	 * Mute all instances.
 	 */
+	#if (swc || as3)
+	@:extern public var mute:Bool;
+	#else
 	public var mute(get, set):Bool;
+	#end
+	
 	private var _mute:Bool;
+	
+	#if (swc || as3)
+	@:getter(mute)
+	#end
 	private function get_mute():Bool {	return this._mute;	 }
+	#if (swc || as3)
+	@:setter(mute)
+	#end
 	private function set_mute(value:Bool):Bool {
 		_mute = value;
 		for ( si in _instances ){
@@ -68,9 +81,21 @@ class VorbisManager
 	/**
 	 * Set volume on all instances
 	 */
+	#if (swc || as3)
+	@:extern public var volume:Float;
+	#else
 	public var volume(get, set):Float;
+	#end
+	
 	private var _volume:Float;
+	
+	#if (swc || as3)
+	@:getter(volume)
+	#end
 	private function get_volume():Float {	return this._volume;	 }
+	#if (swc || as3)
+	@:setter(volume)
+	#end
 	private function set_volume(value:Float):Float {
 		if ( value < 0 ){ value = 0; } else if ( 1 < value || Math.isNaN(value) ){ value = 1; }
 		_volume = value;
@@ -84,9 +109,21 @@ class VorbisManager
 	/**
 	 * Set master volume, which will me multiplied on top of all existing volume levels.
 	 */
+	#if (swc || as3)
+	@:extern public var masterVolume:Float;
+	#else
 	public var masterVolume(get, set):Float;
+	#end
+	
 	private var _masterVolume:Float;
+	
+	#if (swc || as3)
+	@:getter(masterVolume)
+	#end
 	private function get_masterVolume():Float {		return this._masterVolume;	 }
+	#if (swc || as3)
+	@:setter(masterVolume)
+	#end
 	private function set_masterVolume(value:Float):Float {
 		if ( value < 0 ){ value = 0; } else if ( 1 < value || Math.isNaN(value) ){ value = 1; }
 		_masterVolume = value;
@@ -102,9 +139,21 @@ class VorbisManager
 	/**
 	 * Set pan on all instances
 	 */
+	#if (swc || as3)
+	@:extern public var pan:Float;
+	#else
 	public var pan(get, set):Float;
+	#end
+	
 	private var _pan:Float;
+	
+	#if (swc || as3)
+	@:getter(pan)
+	#end
 	private function get_pan():Float {	return this._pan;	 }
+	#if (swc || as3)
+	@:setter(pan)
+	#end
 	private function set_pan(value:Float):Float {
 		_pan = value;
 		for ( si in _instances ){
@@ -113,11 +162,19 @@ class VorbisManager
 		return _pan;
 	}
 	
+	#if (swc || as3)
+	@:extern public var soundTransform:SoundTransform;
+	#else
 	public var soundTransform(never, set):SoundTransform;
+	#end
+	
 	/**
 	 * Set soundTransform on all instances. 
 	 * always return null.
 	 */
+	#if (swc || as3)
+	@:setter(soundTransform)
+	#end
 	private function set_soundTransform(value:SoundTransform):SoundTransform {
 		if ( Lambda.empty(_instances) ){		return null;	}
 		for ( si in _instances ){
@@ -481,9 +538,22 @@ class VorbisManager
 		_instancesByType[si.type] = si;
 	}
 	
+	#if (swc || as3)
+	@:extern public var tickEnabled:Bool;
+	#else
 	public var tickEnabled(get, set):Bool;
+	#end
 	private var _tickEnabled:Bool;
+	
+	
+	#if (swc || as3)
+	@:getter(tickEnabled)
+	#end
 	private function get_tickEnabled():Bool {	return this._tickEnabled;	 }
+	
+	#if (swc || as3)
+	@:setter(tickEnabled)
+	#end
 	private function set_tickEnabled(value:Bool):Bool {
 		if(value == _tickEnabled){ return _tickEnabled; }
 		_tickEnabled = value;

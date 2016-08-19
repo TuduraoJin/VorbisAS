@@ -8,6 +8,34 @@ example
 	haxe.initSwc( new MovieClip() );
 	VorbisAS.initialize();
 
+## セッターの返り値を使用しないでください
+Haxeのようにセッターの返り値を使用しないでください。例えば以下のように。
+
+	var value:Float = instance.field = 0.5;
+
+セッターの返り値は引数と同じ値になります。たとえ、セッター内で値が変更されてreturnされたとしてもです。     
+とはいえ、基本的にAS3ではセッターの返り値はVoidです。    
+そこだけ頭に留めておけば、心配しなくてもいいでしょう。
+
+
+## 開発者の方へ
+
+もし、HaxeでAS3向けにコードを書く場合、以下のメモをチェックしておくと良いかもしれません。
+
+* メタタグ[ @:isVar ]はアクセッサー(get,set) に使用しないでください。使った場合、自動的に変数が定義され、その変数にアクセスしてもgetter/setterを通しません。
+* Haxeのコンパイルオプションに[ -D swf-protected ]を使用しないでください。 このオプションを使った場合、AS3上でランタイムエラーを引き起こします。特に TypeError 1006。
+* メタタグ[ @:protected ]を private なフィールド変数に使用しないでください。このタグをつけた変数は、AS3だとstaticに扱われます。
+
+これらの問題は haxe 3.2.1　と FlashDevelop 5.1.1.1　で確認しています。
+もしかしたら、後のバージョンでは解決しているかもしれません。    
+いや、解決していてほしい。
+	
+------------------------------------
+# 解決済みの問題
+私がAS3向けにコーディングしていて発生した問題です。
+もしかしたら、これを読んでいるあなたの助けになるかもしれないです。
+
+
 ## Flashネイティブのアクセッサーが動作しない問題について
 
 **AS3上では getter/setter メソッドに直接アクセスする必要があります。**
@@ -21,51 +49,6 @@ example
 	var vi:VorbisInstance = VorbisAS.play(FILE_MUSIC);
 	vi.get_isPlaying();     // getter
 	vi.set_volume(0.5);     // setter
-
-
-## 直接アクセスが必要なアクセッサーの一覧
-
-以下のプロパティはgetter/setterに直接アクセスする必要があります。
-
-	// VorbisAS
-	trace("VorbisAS.groups",        VorbisAS.get_groups());
-	trace("VorbisAS.loadCompleted", VorbisAS.get_loadCompleted());
-	trace("VorbisAS.loadFailed",    VorbisAS.get_loadFailed());
-	trace("VorbisAS.volume",        VorbisAS.get_volume());
-	trace("VorbisAS.masterVolume",  VorbisAS.get_masterVolume());
-	trace("VorbisAS.mute",          VorbisAS.get_mute());
-	trace("VorbisAS.pan",           VorbisAS.get_pan());
-	trace("VorbisAS.tickEnabled",   VorbisAS.get_tickEnabled());
-	trace("VorbisAS.parent",        VorbisAS.get_parent());
-	
-	// VorbisInstance
-	trace("VorbisInstance.fade",            vi.fade);
-	trace("VorbisInstance.isPaused",        vi.get_isPaused());
-	trace("VorbisInstance.isPlaying",       vi.get_isPlaying());
-	trace("VorbisInstance.loops",           vi.get_loops());
-	trace("VorbisInstance.loopsRemaining",  vi.get_loopsRemaining());
-	trace("VorbisInstance.manager",         vi.manager);
-	trace("VorbisInstance.volume",          vi.get_volume());
-	trace("VorbisInstance.masterVolume",    vi.get_masterVolume());
-	trace("VorbisInstance.mixedVolume",     vi.get_mixedVolume());
-	trace("VorbisInstance.mute",            vi.get_mute());
-	trace("VorbisInstance.pan",             vi.get_pan());
-	trace("VorbisInstance.position",        vi.get_position());
-	trace("VorbisInstance.soundTransform",  vi.get_soundTransform());
-	
-	// VorbisTween
-	trace("VorbisTween.isComplete",     vi.fade.isComplete);
-	
-	// VorbisManager
-	trace("VorbisManager.parent",           VorbisAS.manager.parent);
-	trace("VorbisManager.groups",           VorbisAS.manager.groups);
-	trace("VorbisManager.loadCompleted",    VorbisAS.manager.loadCompleted);
-	trace("VorbisManager.loadFailed",       VorbisAS.manager.loadFailed);
-	trace("VorbisManager.volume",           VorbisAS.manager.get_volume());
-	trace("VorbisManager.masterVolume",     VorbisAS.manager.get_masterVolume());
-	trace("VorbisManager.mute",             VorbisAS.manager.get_mute());
-	trace("VorbisManager.pan",              VorbisAS.manager.get_pan());
-	trace("VorbisManager.tickEnabled",      VorbisAS.manager.get_tickEnabled());
 
 
 ### なぜこんなことに…？
@@ -152,15 +135,70 @@ fieldA と fieldB は、getter/setterが定義されているにも関わらず�
 private で宣言されたgetter/setterを呼び出すことに疑問を持った方もいるかもしれません。
 これも１つの問題なのですが、HaxeのSWCはAS3上だとgetter/setterが public になっています。
 
-## 開発者の方へ
 
-もし、HaxeでAS3向けにコードを書く場合、以下のメモをチェックしておくと良いかもしれません。
+### 解決方法は？
+アクセッサを書くときは以下のようにしてください。
 
-* メタタグ[ @:isVar ]はアクセッサー(get,set) に使用しないでください。使った場合、自動的に変数が定義され、その変数にアクセスしてもgetter/setterを通しません。
-* Haxeのコンパイルオプションに[ -D swf-protected ]を使用しないでください。 このオプションを使った場合、AS3上でランタイムエラーを引き起こします。特に TypeError 1006。
-* メタタグ[ @:protected ]を private なフィールド変数に使用しないでください。このタグをつけた変数は、AS3だとstaticに扱われます。
+example
+*AccessorTest.hx*
 
-これらの問題は haxe 3.2.1　と FlashDevelop 5.1.1.1　で確認しています。
-もしかしたら、後のバージョンでは解決しているかもしれません。    
-いや、解決していてほしい。
+	#if (swc || as3)
+	@:extern public var fieldA:Int;
+	
+	private var _fieldA:Int;
+	
+	@:getter(fieldA)
+	private function get_fieldA():Int{
+		return _fieldA;
+	}
+	
+	@:setter(fieldA)
+	private function set_fieldA( value:Int ):Int {
+		_fieldA = value + 1;
+		return _fieldA;
+	}
+	
+	#else
+	
+	// for Haxe swf
+	public var fieldA(default, set):Int;
+	private function set_fieldA( value:Int ):Int {
+		return fieldA = value + 1;
+	}
+	#end
 
+
+生成されるAS3コード。　-as3オプションを使って生成したものです。
+
+	protected var _fieldA : int;
+	protected function get fieldA() : int {
+		return this._fieldA;
+	}
+	
+	protected function set fieldA(value : int) : int {
+		this._fieldA = value + 1;
+		return this._fieldA;
+	}
+	
+
+そう、これです！こういうコードを待っていたんです。
+
+ここで注目すべき点は3点あります。
+
+**(1) メタタグ @:getter / @:setter**    
+このタグはflash向けのものです。
+これはゲッターセッター関数に付与します。付与された関数はネイティブなアクセッサーに変換されます。
+このタグの引数はアクセッサのフィールド名です。しかし、フィールド自体が生成されるわけではないので注意が必要です。
+
+
+**(2) メタタグ @:extern and extern field for SWC**   
+@:extern タグは　抽象フィールド/関数を定義するためのものです。    
+もし、@:getter/setterタグだけを使用した状態で、ほかのクラスでそのアクセッサフィールドにアクセスした場合、フィールド変数が見つからない、というコンパイルエラーが発生します。
+externフィールドは、このエラーを回避するためのものです。externフィールドはコンパイル後は実体を持ちません。
+
+
+**(3) 各プラットフォームのための　#if-else マクロ**    
+上記の(1) , (2) はSWCだけのためのコードです. このままではhaxeでは動きません。    
+Haxeユーザのためにコンパイルコードを分岐する必要があります。
+#if (swc || as3) セクションにはSWCとAS3生成向けのコードを書きます. 
+#else セクションにはHaxe向けのコードを書きます。

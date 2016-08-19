@@ -10,6 +10,33 @@ example
 	haxe.initSwc( new MovieClip() );
 	VorbisAS.initialize();
 
+## Don't use setter return value.
+Don't use setter like haxe. like this.     
+
+	var value:Float = instance.field = 0.5;
+
+setter return value is same to argument, even If argument value is changed in setter function.   
+However. basically setter return value is Void in AS3.    
+it is not necessary to worry too much.
+
+## for developer 
+if you will coding for AS3 by Haxe 3.
+please check following memo...
+
+* shouldn't use metatag [@:isVar] to accessor field(get,set). It is create duplicately field on AS3 and this field *doesn't* through getter/setter functions.
+* shouldn't use haxe compile option [-D swf-protected]. It is cause some runtime error on AS3. TypeError 1006.
+* shouldn't use metatag [@:protected] to private field. If set this tag, field is changed static field.
+
+these problems found on haxe 3.2.1. and FlashDevelop 5.1.1.1.     
+Just maybe, it might be fixed in later versions.     
+I hope!
+
+------------------------------------
+# Fixed Problems
+Occurred these issues in coding for AS3.
+just maybe, help for you.
+
+
 ## Native accessor does not working...
 
 **you need directly access getter/setter functions on AS3.**
@@ -23,52 +50,6 @@ example
 	vi.get_isPlaying();     // getter
 	vi.set_volume(0.5);     // setter
 	
-
-## need directly access funcitons list.
-
-following properties need directly access getter/setter function.
-
-	// VorbisAS
-	trace("VorbisAS.groups",		VorbisAS.get_groups());
-	trace("VorbisAS.loadCompleted",	VorbisAS.get_loadCompleted());
-	trace("VorbisAS.loadFailed",	VorbisAS.get_loadFailed());
-	trace("VorbisAS.volume",		VorbisAS.get_volume());
-	trace("VorbisAS.masterVolume",	VorbisAS.get_masterVolume());
-	trace("VorbisAS.mute",			VorbisAS.get_mute());
-	trace("VorbisAS.pan",			VorbisAS.get_pan());
-	trace("VorbisAS.tickEnabled", 	VorbisAS.get_tickEnabled());
-	trace("VorbisAS.parent",		VorbisAS.get_parent());
-	
-	// VorbisInstance
-	trace("VorbisInstance.fade",			vi.fade);
-	trace("VorbisInstance.isPaused",		vi.get_isPaused());
-	trace("VorbisInstance.isPlaying",		vi.get_isPlaying());
-	trace("VorbisInstance.loops",			vi.get_loops());
-	trace("VorbisInstance.loopsRemaining",	vi.get_loopsRemaining());
-	trace("VorbisInstance.manager",			vi.manager);
-	trace("VorbisInstance.volume",			vi.get_volume());
-	trace("VorbisInstance.masterVolume",	vi.get_masterVolume());
-	trace("VorbisInstance.mixedVolume",		vi.get_mixedVolume());
-	trace("VorbisInstance.mute",			vi.get_mute());
-	trace("VorbisInstance.pan",				vi.get_pan());
-	trace("VorbisInstance.position",		vi.get_position());
-	trace("VorbisInstance.soundTransform", 	vi.get_soundTransform());
-	
-	// VorbisTween
-	trace("VorbisTween.isComplete",		vi.fade.isComplete);
-
-	
-	// VorbisManager
-	trace("VorbisManager.parent",			VorbisAS.manager.parent);
-	trace("VorbisManager.groups",			VorbisAS.manager.groups);
-	trace("VorbisManager.loadCompleted",	VorbisAS.manager.loadCompleted);
-	trace("VorbisManager.loadFailed",		VorbisAS.manager.loadFailed);
-	trace("VorbisManager.volume",			VorbisAS.manager.get_volume());
-	trace("VorbisManager.masterVolume",		VorbisAS.manager.get_masterVolume());
-	trace("VorbisManager.mute",				VorbisAS.manager.get_mute());
-	trace("VorbisManager.pan",				VorbisAS.manager.get_pan());
-	trace("VorbisManager.tickEnabled", 		VorbisAS.manager.get_tickEnabled());
-
 
 ### why...?
 
@@ -149,16 +130,70 @@ I don't know why cause this plobrem...
 However, we have a way that call directly getter/setter function.
 it's work fine.
 
-p.s private getter/setter function change to public on AS3.
+p.s private getter/setter function change to public on AS3. at this case.
 
-## for developer 
-if you will coding for AS3 by Haxe 3.
-please check following memo...
 
-* shouldn't use metatag [@:isVar] to accessor field(get,set). It is create duplicately field on AS3 and this field *doesn't* through getter/setter functions.
-* shouldn't use haxe compile option [-D swf-protected]. It is cause some runtime error on AS3. TypeError 1006.
-* shouldn't use metatag [@:protected] to private field. If set this tag, field is changed static field.
+### how to Fixed ?
+accessor be coded as follows.
 
-these problems found on haxe 3.2.1. and FlashDevelop 5.1.1.1.     
-Just maybe, it might be fixed in later versions.     
-I hope!
+example
+*AccessorTest.hx*
+
+	#if (swc || as3)
+	@:extern public var fieldA:Int;
+	
+	private var _fieldA:Int;
+	
+	@:getter(fieldA)
+	private function get_fieldA():Int{
+		return _fieldA;
+	}
+	
+	@:setter(fieldA)
+	private function set_fieldA( value:Int ):Int {
+		_fieldA = value + 1;
+		return _fieldA;
+	}
+	
+	#else
+	
+	// for Haxe swf
+	public var fieldA(default, set):Int;
+	private function set_fieldA( value:Int ):Int {
+		return fieldA = value + 1;
+	}
+	#end
+
+generated ActionScript code. use -as3 compile option.
+
+	protected var _fieldA : int;
+	protected function get fieldA() : int {
+		return this._fieldA;
+	}
+	
+	protected function set fieldA(value : int) : int {
+		this._fieldA = value + 1;
+		return this._fieldA;
+	}
+	
+that it! I've been wishing this code.     
+
+you should be noted there are three points.
+
+**(1) MetaTag @:getter / @:setter**    
+this tag is working for flash.   
+it is add to getter/setter function. function is changed to native accessor.
+these tag's argument is accessor field name.
+but It is not created physical field.
+
+**(2) MetaTag @:extern and extern field for SWC**   
+@:extern tag is for abstruct field/function.    
+if you use @:getter/setter tag only and access to field in other Class.
+it cause compile error [has no field].
+extern field is avoid to no field error. and field is not build after compile.
+
+**(3) #if-else macro for branch to some platforms**    
+above (1) , (2) is for SWC only. not working for haxe.     
+For haxe user, branches to compile code.
+#if (swc || as3) section is for SWC and build AS3 code. 
+#else section is for haxe.

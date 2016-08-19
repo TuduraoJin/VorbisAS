@@ -1,5 +1,10 @@
 CHANGELOG
 =========
+## ver 0.4
+-------------------------------
+## August 19, 2016
+* fixed accessor problem on AS3. all accessor  use @:getter , @:setter　tag and #if-#end macro for swc code.
+* update ATTENSIONonAS3
 
 ## ver 0.3.1
 -------------------------------

@@ -20,22 +20,40 @@ class VorbisSoundChannel implements IEventDispatcher {
 	 * flash.media.SoundChannel instance.
 	 */
     public var channel(default, null):SoundChannel;
-
+	
+	#if (swc || as3)
+    @:extern public var leftPeak:Float;
+	#else
     public var leftPeak(get, never):Float;
-    function get_leftPeak():Float {
+	#end
+	
+    #if (swc || as3)
+	@:getter(leftPeak)
+	#end
+	function get_leftPeak():Float {
         return channel.leftPeak;
     }
 
 	/**
 	 * playing position (MilliSecond)
 	 */
+	#if (swc || as3)
+    @:extern public var position:Float;
+	#else
     public var position(get, never):Float;
+	#end
+    #if (swc || as3)
+	@:getter(position)
+	#end
     function get_position():Float {
         //return reader.currentMillisecond;	// return Illegal value( about Actual time + 500ms). in my case.
         return channel.position;
     }
 
     public var rightPeak(get, never):Float;
+    #if (swc || as3)
+	@:getter(rightPeak)
+	#end
     function get_rightPeak():Float {
         return channel.rightPeak;
     }
@@ -43,10 +61,21 @@ class VorbisSoundChannel implements IEventDispatcher {
 	/**
 	 * SoundTransform. access to volume and pan.
 	 */
+    #if (swc || as3)
+	@:extern public var soundTransform:SoundTransform;
+	#else
     public var soundTransform(get, set):SoundTransform;
+	#end
+	
+    #if (swc || as3)
+	@:getter(soundTransform)
+	#end
     function get_soundTransform():SoundTransform {
         return channel.soundTransform;
     }
+    #if (swc || as3)
+	@:setter(soundTransform)
+	#end
     function set_soundTransform(value:SoundTransform):SoundTransform {
         return channel.soundTransform = value;
     }

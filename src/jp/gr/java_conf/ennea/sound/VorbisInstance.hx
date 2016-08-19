@@ -71,10 +71,22 @@ class VorbisInstance
 	 * 2...X is play X times.
 	 * -1 is infinitely loop.
 	 */
+	
+	#if (swc || as3)
+	@:extern public var loops:Int;
+	#else
 	public var loops(get, set):Int;
+	#end
+	
 	private var _loops:Int;
 	
+	#if (swc || as3)
+	@:getter(loops)
+	#end
 	function get_loops():Int {	return this._loops;	}
+	#if (swc || as3)
+	@:setter(loops)
+	#end
 	function set_loops( value:Int ):Int {
 		var val:Int = value;
 		if ( val < 0 ){	val = LOOP_MAX;	}
@@ -88,7 +100,14 @@ class VorbisInstance
 	 * It will equal 0 when the sound is completed, or not looping at all. 
 	 * It will equal -1 if the sound is looping infinitely.
 	 */
+	#if (swc || as3)
+	@:extern public var loopsRemaining:Int;
+	#else
 	public var loopsRemaining(get, never):Int;
+	#end
+	#if (swc || as3)
+	@:getter(loopsRemaining)
+	#end
 	private function get_loopsRemaining():Int {
 		if ( this.channel != null )
 		{
@@ -111,10 +130,20 @@ class VorbisInstance
 	/**
 	 * Mute current sound.
 	 */
+	#if (swc || as3)
+	@:extern public var mute:Bool;
+	#else
 	public var mute(get, set):Bool;
+	#end
 	private var _mute:Bool;
 	
+	#if (swc || as3)
+	@:getter(mute)
+	#end
 	private function get_mute():Bool {		return _mute;	}
+	#if (swc || as3)
+	@:setter(mute)
+	#end
 	private function set_mute(value:Bool):Bool {
 		_mute = value;
 		if(channel != null){
@@ -128,14 +157,30 @@ class VorbisInstance
 	/**
 	 * Indicates whether this sound is currently playing.
 	 */
+	#if (swc || as3)
+	@:extern public var isPlaying:Bool;
+	#else
 	public var isPlaying(get, never):Bool;
+	#end
+	
 	private var _isPlaying:Bool;
+	#if (swc || as3)
+	@:getter(isPlaying)
+	#end
 	private function get_isPlaying():Bool{	return this._isPlaying;	}
 	
 	/**
 	 * Indicates whether this sound is currently paused.
 	 */
+	#if (swc || as3)
+	@:extern public var isPaused:Bool;
+	#else
 	public var isPaused(get, never):Bool;
+	#end
+	
+	#if (swc || as3)
+	@:getter(isPaused)
+	#end
 	private function get_isPaused():Bool {
 		return channel != null && sound != null && _pauseTime > 0 && _pauseTime < sound.length;
 	}
@@ -144,8 +189,20 @@ class VorbisInstance
 	 * position of sound in milliseconds
 	 * if set new value, restart channel.
 	 */
+	
+	#if (swc || as3)
+	@:extern public var position:Float;
+	#else
 	public var position(get, set):Float;
+	#end
+	
+	#if (swc || as3)
+	@:getter(position)
+	#end
 	private function get_position():Float { return (channel != null)? channel.position : 0; }
+	#if (swc || as3)
+	@:setter(position)
+	#end
 	private function set_position(value:Float):Float {
 		if(channel != null){ 
 			stopChannel(channel);
@@ -159,10 +216,20 @@ class VorbisInstance
 	/**
 	 * Value between 0 and 1. You can call this while muted to change volume, and it will not break the mute.
 	 */
+	#if (swc || as3)
+	@:extern public var volume:Float;
+	#else
 	public var volume(get, set):Float;
+	#end
 	private var _volume:Float;
 	
+	#if (swc || as3)
+	@:getter(volume)
+	#end
 	private function get_volume():Float {	return _volume; }
+	#if (swc || as3)
+	@:setter(volume)
+	#end
 	private function set_volume(value:Float):Float {
 		//Update the voume value, but respect the mute flag.
 		if(value < 0){ value = 0; } else if(value > 1 || Math.isNaN(value)){ value = 1; }
@@ -175,13 +242,24 @@ class VorbisInstance
 		return _volume;
 	}
 	
+	#if (swc || as3)
+	@:extern public var masterVolume:Float;
+	#else
 	public var masterVolume(get, set):Float;
+	#end
+	
+	#if (swc || as3)
+	@:getter(masterVolume)
+	#end
 	private function get_masterVolume():Float { return manager.masterVolume; }
 	
 	/**
 	 * Sets the master volume (the volume of the manager)
 	 * Note : this will affect all sounds managed by the same manager
 	 */
+	#if (swc || as3)
+	@:setter(masterVolume)
+	#end
 	private function set_masterVolume(value:Float):Float {
 		return manager.masterVolume = value;
 	}
@@ -189,7 +267,15 @@ class VorbisInstance
 	/**
 	 * Combined masterVolume and volume levels
 	 */
+	#if (swc || as3)
+	@:extern public var mixedVolume:Float;
+	#else
 	public var mixedVolume(get, never):Float;
+	#end
+	
+	#if (swc || as3)
+	@:getter(mixedVolume)
+	#end
 	private function get_mixedVolume():Float {
 		return _volume * manager.masterVolume;
 	}
@@ -198,10 +284,21 @@ class VorbisInstance
 	/**
 	 * The left-to-right panning of the sound, ranging from -1 (full pan left) to 1 (full pan right).
 	 */
+	#if (swc || as3)
+	@:extern public var pan:Float;
+	#else
 	public var pan(get, set):Float;
+	#end
+	
 	private var _pan:Float;
 	
+	#if (swc || as3)
+	@:getter(pan)
+	#end
 	private function get_pan():Float {	return this._pan; }
+	#if (swc || as3)
+	@:setter(pan)
+	#end
 	private function set_pan(value:Float):Float 
 	{
 		//Update the voume value, but respect the mute flag.
@@ -216,14 +313,25 @@ class VorbisInstance
 	}
 	
 
+	#if (swc || as3)
+	@:extern public var soundTransform:SoundTransform;
+	#else
 	public var soundTransform(get, set):SoundTransform;
+	#end
+	
 	private var _soundTransform:SoundTransform;
 	
+	#if (swc || as3)
+	@:getter(soundTransform)
+	#end
 	private function get_soundTransform():SoundTransform {
 		//if( _soundTransform == null ){ _soundTransform = new SoundTransform(mixedVolume, _pan); }
 		return _soundTransform;
 	}
 	
+	#if (swc || as3)
+	@:setter(soundTransform)
+	#end
 	private function set_soundTransform(value:SoundTransform):SoundTransform 
 	{
 		if(value.volume > 0){ _mute = false; } 
@@ -287,7 +395,7 @@ class VorbisInstance
 		_pauseTime = 0; //Always reset pause time on play
 		
 		this.volume = volume;
-		this.mute = mute;
+		this.mute = this._mute; // call getter
 		return this;
 	}
 	

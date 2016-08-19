@@ -51,7 +51,7 @@ package
 			VorbisAS.loadSound(ASSETS_PATH + FILE_SOLO2, FILE_SOLO2);
 			
 			var file_count:int = 5;
-			VorbisAS.get_loadCompleted().add( function( si:VorbisInstance ):void{
+			VorbisAS.loadCompleted.add( function( si:VorbisInstance ):void{
 				trace(" sound loaded. url=" + si.url);
 				if ( --file_count <= 0 ){
 					setupTest();
@@ -114,13 +114,13 @@ package
 				case Keyboard.Z:	mvolume += 0.1;
 					if (mvolume < 0) mvolume = 0;
 					else if ( mvolume > 1 ) mvolume = 1;
-					VorbisAS.set_masterVolume(mvolume);
+					VorbisAS.masterVolume = mvolume;
 					trace("UP mastervolume=" + mvolume);
 					break;
 				case Keyboard.X:	mvolume -= 0.1;
 					if (mvolume < 0) mvolume = 0;
 					else if ( mvolume > 1 ) mvolume = 1;
-					VorbisAS.set_masterVolume(mvolume);
+					VorbisAS.masterVolume = mvolume;
 					trace("DOWN mastervolume=" + mvolume);
 					break;
 				default:
@@ -134,12 +134,12 @@ package
 			trace("Testing PLAY: Play / Stop / PlayMultiple / StopMultiple");
 			// play
 			VorbisAS.playLoop( FILE_MUSIC  );
-			trace("play "," isPlaying:", VorbisAS.getSound(FILE_MUSIC).get_isPlaying());
+			trace("play "," isPlaying:", VorbisAS.getSound(FILE_MUSIC).isPlaying);
 			
 			// stop
 			setTimeout(function():void{
 					VorbisAS.getSound(FILE_MUSIC).stop();
-					trace("stop ", " isPlaying:", VorbisAS.getSound(FILE_MUSIC).get_isPlaying());
+					trace("stop ", " isPlaying:", VorbisAS.getSound(FILE_MUSIC).isPlaying);
 					},
 				3000);
 			
@@ -238,7 +238,7 @@ package
 			}, 10500);
 			
 			setTimeout(function():void{
-				VorbisAS.set_masterVolume( mvolume );
+				VorbisAS.masterVolume = mvolume;
 				VorbisAS.stopAll();
 			}, 12000);
 			
@@ -255,18 +255,21 @@ package
 			
 			setTimeout(function():void{
 				trace("mute");
-				VorbisAS.set_mute(true);
+				//VorbisAS.set_mute(true);
+				VorbisAS.mute = true;
 			}, 2000);
 			
 			
 			setTimeout(function():void{
 				trace("un-mute");
-				VorbisAS.set_mute(false);
+				//VorbisAS.set_mute(false);
+				VorbisAS.mute = false;
 			}, 3000);
 			
 			setTimeout(function():void{
 				trace("volume=.2");
-				VorbisAS.set_volume(.2);
+				//VorbisAS.set_volume(.2);
+				VorbisAS.volume = .2;
 			}, 4000);
 
 			setTimeout(function():void{
@@ -359,26 +362,26 @@ package
 			// music volume change to 0.2 after 5000
 			setTimeout(function():void{
 				trace("Music Volume = .2");
-				music.set_volume(.2);
+				music.volume = .2;
 			}, 5000);
 			
 			// mute solos after 6000
 			setTimeout(function():void{
 				trace("Mute Solos");
-				solos.set_mute(true);
+				solos.mute = true;
 			}, 6000);
 			
 			// unmute solos after 7000
 			setTimeout(function():void{
 				trace("Unmute Solos");
-				solos.set_mute(false);
+				solos.mute = false;
 			}, 7500);
 			
 			
 			// stop all group sound solos after 9000
 			setTimeout(function():void{
 				trace("STOP ALL!");
-				var i:int = VorbisAS.get_groups().length - 1;
+				var i:int = VorbisAS.groups.length - 1;
 				while ( 0 <= i ){
 					VorbisAS.manager.groups[i].stopAll();
 					i--;
@@ -406,21 +409,21 @@ package
 			trace("isPlaying / isPaused");
 			VorbisAS.play(FILE_SOLO2);
 			VorbisAS.getSound(FILE_SOLO2).soundCompleted.addOnce(function( vi:VorbisInstance ):void{
-					trace(" sound complete. isPlayed=", vi.get_isPlaying()); // not dispatch
+					trace(" sound complete. isPlayed=", vi.isPlaying); // not dispatch
 			});
 			
 			setTimeout(function():void{
-				trace("play.  isPlayed=",VorbisAS.getSound(FILE_SOLO2).get_isPlaying());
+				trace("play.  isPlayed=",VorbisAS.getSound(FILE_SOLO2).isPlaying);
 			}, 20);
 			
 			setTimeout(function():void{
 				VorbisAS.getSound(FILE_SOLO2).pause();
-				trace("pause.  isPaused=", VorbisAS.getSound(FILE_SOLO2).get_isPaused());
+				trace("pause.  isPaused=", VorbisAS.getSound(FILE_SOLO2).isPaused);
 			}, 1000);
 			
 			setTimeout(function():void{
 				VorbisAS.getSound(FILE_SOLO2).resume();
-				trace("resume.  isPaused=", VorbisAS.getSound(FILE_SOLO2).get_isPaused());
+				trace("resume.  isPaused=", VorbisAS.getSound(FILE_SOLO2).isPaused);
 			}, 2000);
 			
 			// check stopAtZero 
@@ -434,11 +437,11 @@ package
 				trace("fade. stopAtZero ",vi.fade.stopAtZero );
 				
 				vi.soundCompleted.addOnce(function(vi:VorbisInstance):void{
-					trace(" sound complete. isPlayed=", vi.get_isPlaying()); // not dispatch
+					trace(" sound complete. isPlayed=", vi.isPlaying); // not dispatch
 				});
 				
 				vi.fade.ended.addOnce(function(vi:VorbisInstance):void{
-					trace(" soundTween ended. isPlayed=", vi.get_isPlaying()); // dispatch
+					trace(" soundTween ended. isPlayed=", vi.isPlaying); // dispatch
 				});
 				
 			}, 5000);
@@ -452,26 +455,26 @@ package
 			// no loop -------------------
 			
 			var vi:VorbisInstance = VorbisAS.play(FILE_LOOP, 1, 0, 0); // no loop
-			trace( "play, loop = 0"," LoopRemaining ",vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+			trace( "play, loop = 0"," LoopRemaining ",vi.loopsRemaining , " / loop ", vi.loops);
 			vi.soundCompleted.add( function( vi:VorbisInstance ):void{
 				trace("onComplete");
-				trace( "play, loop = " + vi.get_loops() , " LoopRemaining " , vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+				trace( "play, loop = " + vi.loops , " LoopRemaining " , vi.loopsRemaining , " / loop ", vi.loops);
 			});
 			
 			// 1 loop ( no loop ) -------------------
 			// 
 			setTimeout(function():void{
 				vi = VorbisAS.play(FILE_LOOP, 1, 0, 1); // 1 loop
-				trace( "play, loop = 1"," LoopRemaining ",vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+				trace( "play, loop = 1"," LoopRemaining ",vi.loopsRemaining , " / loop ", vi.loops);
 			}, 10000);
 			
 			// 2 loop -------------------
 			
 			setTimeout(function():void{
 				vi = VorbisAS.play(FILE_LOOP, 1, 0, 2); // 2 loop
-				trace( "play, loop = 2"," LoopRemaining ",vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+				trace( "play, loop = 2"," LoopRemaining ",vi.loopsRemaining , " / loop ", vi.loops);
 				setTimeout(function():void{
-					trace( "play, loop = 2"," LoopRemaining ",vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+					trace( "play, loop = 2"," LoopRemaining ",vi.loopsRemaining , " / loop ", vi.loops);
 				}, 10000);
 			}, 20000);
 			
@@ -479,18 +482,18 @@ package
 			
 			setTimeout(function():void{
 				vi = VorbisAS.play(FILE_LOOP, 1, 0, -1); // infinity loop
-				trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+				trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.loopsRemaining , " / loop ", vi.loops);
 				
 				setTimeout(function():void{
-					trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+					trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.loopsRemaining , " / loop ", vi.loops);
 				}, 10000);
 				
 				setTimeout(function():void{
-					trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+					trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.loopsRemaining , " / loop ", vi.loops);
 				}, 20000);
 				
 				setTimeout(function():void{
-					trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.get_loopsRemaining() , " / loop ", vi.get_loops());
+					trace( "play, loop = -1(Infinity)", " LoopRemaining ", vi.loopsRemaining , " / loop ", vi.loops);
 					vi.stop();
 					trace("stop loop");
 				}, 25000);
@@ -517,19 +520,19 @@ package
 			vi.fadeTo(0.2,2000);
 			
 			setTimeout(function():void{
-				( vi.get_isPaused() )? vi.resume() : vi.pause() ;
-				trace(" VorbisInstance isPaused", vi.get_isPaused()　, " isPlaying",vi.get_isPlaying()  );
+				( vi.isPaused )? vi.resume() : vi.pause() ;
+				trace(" VorbisInstance isPaused", vi.isPaused　, " isPlaying",vi.isPlaying , "pos", vi.position );
 			}, 2000);
 			
 			setTimeout(function():void{
-				( vi.get_isPaused() )? vi.resume() : vi.pause() ;
-				trace(" VorbisInstance isPaused", vi.get_isPaused()　, " isPlaying",vi.get_isPlaying()  );
+				( vi.isPaused )? vi.resume() : vi.pause() ;
+				trace(" VorbisInstance isPaused", vi.isPaused　, " isPlaying",vi.isPlaying , "pos", vi.position );
 			}, 4000);
 			
 			setTimeout(function():void{
 				vi.stop();
 				trace( " stop. Accessor test is over.");
-				trace(" VorbisInstance isPaused", vi.get_isPaused()　, " isPlaying",vi.get_isPlaying()  );
+				trace(" VorbisInstance isPaused", vi.isPaused　, " isPlaying",vi.isPlaying , "pos", vi.position );
 			}, 6000);
 			
 			// check accessor
@@ -538,33 +541,33 @@ package
 			trace("VorbisAS.manager", VorbisAS.manager);
 			VorbisAS.group("music");
 			VorbisAS.group("se");
-			trace("VorbisAS.groups",VorbisAS.get_groups());
-			trace("VorbisAS.loadCompleted",VorbisAS.get_loadCompleted());
-			trace("VorbisAS.loadFailed",VorbisAS.get_loadFailed());
-			trace("VorbisAS.volume",VorbisAS.get_volume());
-			trace("VorbisAS.volume",VorbisAS.set_volume(0.7));
-			trace("VorbisAS.masterVolume",VorbisAS.get_masterVolume());
-			trace("VorbisAS.masterVolume",VorbisAS.set_masterVolume(0.5));
-			trace("VorbisAS.mute",VorbisAS.get_mute());
-			trace("VorbisAS.pan",VorbisAS.get_pan());
-			trace("VorbisAS.tickEnabled", VorbisAS.get_tickEnabled());
-			trace("VorbisAS.parent",VorbisAS.get_parent());
+			trace("VorbisAS.groups",VorbisAS.groups);
+			trace("VorbisAS.loadCompleted",VorbisAS.loadCompleted);
+			trace("VorbisAS.loadFailed",VorbisAS.loadFailed);
+			trace("VorbisAS.volume",VorbisAS.volume);
+			trace("VorbisAS.volume",VorbisAS.volume = 0.7);
+			trace("VorbisAS.masterVolume",VorbisAS.masterVolume);
+			trace("VorbisAS.masterVolume",VorbisAS.masterVolume = 0.5);
+			trace("VorbisAS.mute",VorbisAS.mute);
+			trace("VorbisAS.pan",VorbisAS.pan);
+			trace("VorbisAS.tickEnabled", VorbisAS.tickEnabled);
+			trace("VorbisAS.parent",VorbisAS.parent);
 			
 			trace("---");
 			// VorbisInstance
 			trace("VorbisInstance.fade",vi.fade );
-			trace("VorbisInstance.isPaused",vi.get_isPaused());
-			trace("VorbisInstance.isPlaying",vi.get_isPlaying());
-			trace("VorbisInstance.loops",vi.get_loops());
-			trace("VorbisInstance.loopsRemaining",vi.get_loopsRemaining());
+			trace("VorbisInstance.isPaused",vi.isPaused);
+			trace("VorbisInstance.isPlaying",vi.isPlaying);
+			trace("VorbisInstance.loops",vi.loops);
+			trace("VorbisInstance.loopsRemaining",vi.loopsRemaining);
 			trace("VorbisInstance.manager",vi.manager);
-			trace("VorbisInstance.volume",vi.get_volume());
-			trace("VorbisInstance.masterVolume",vi.get_masterVolume());
-			trace("VorbisInstance.mixedVolume",vi.get_mixedVolume());
-			trace("VorbisInstance.mute",vi.get_mute());
-			trace("VorbisInstance.pan",vi.get_pan());
-			trace("VorbisInstance.position",vi.get_position());
-			trace("VorbisInstance.soundTransform", vi.get_soundTransform());
+			trace("VorbisInstance.volume",vi.volume);
+			trace("VorbisInstance.masterVolume",vi.masterVolume);
+			trace("VorbisInstance.mixedVolume",vi.mixedVolume);
+			trace("VorbisInstance.mute",vi.mute);
+			trace("VorbisInstance.pan",vi.pan);
+			trace("VorbisInstance.position",vi.position);
+			trace("VorbisInstance.soundTransform", vi.soundTransform);
 			
 			trace("---");
 			// VorbisTween
@@ -578,12 +581,11 @@ package
 			trace("VorbisManager.groups",VorbisAS.manager.groups);
 			trace("VorbisManager.loadCompleted",VorbisAS.manager.loadCompleted);
 			trace("VorbisManager.loadFailed",VorbisAS.manager.loadFailed);
-			trace("VorbisManager.volume",VorbisAS.manager.get_volume());
-			trace("VorbisManager.masterVolume",VorbisAS.manager.get_masterVolume());
-			trace("VorbisManager.mute",VorbisAS.manager.get_mute());
-			trace("VorbisManager.pan",VorbisAS.manager.get_pan());
-			trace("VorbisManager.tickEnabled", VorbisAS.manager.get_tickEnabled());
-			
+			trace("VorbisManager.volume",VorbisAS.manager.volume);
+			trace("VorbisManager.masterVolume",VorbisAS.manager.masterVolume);
+			trace("VorbisManager.mute",VorbisAS.manager.mute);
+			trace("VorbisManager.pan",VorbisAS.manager.pan);
+			trace("VorbisManager.tickEnabled", VorbisAS.manager.tickEnabled);
 		}
 	}
 
