@@ -195,5 +195,5 @@ extern field is avoid to no field error. and field is not build after compile.
 **(3) #if-else macro for branch to some platforms**    
 above (1) , (2) is for SWC only. not working for haxe.     
 For haxe user, branches to compile code.
-#if (swc || as3) section is for SWC and build AS3 code. 
-#else section is for haxe.
+ #if (swc || as3) section is for SWC and build AS3 code. 
+ #else section is for haxe.
